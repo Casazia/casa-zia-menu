@@ -203,7 +203,7 @@
                             name: "Other",
                             items: [
                                 { name: "Upma", price: 60, type: "veg" },
-                                { name: "South Indian Veg Meals", price: 140, type: "veg" } // Changed from Veg Meals
+                                { name: "South Indian Veg Meals", price: 140, type: "veg" }
                             ]
                         }
                     ]
@@ -241,42 +241,4 @@
                         const itemDiv = document.createElement('div');
                         itemDiv.className = 'menu-item';
                         itemDiv.innerHTML = `
-                            <div class="menu-item-details">
-                                <p class="menu-item-name">
-                                    <span class="${item.type}-dot"></span>
-                                    ${item.name}
-                                </p>
-                                <p class="menu-item-price">Rs. ${item.price}</p>
-                            </div>
-                        `;
-                        categoryDiv.appendChild(itemDiv);
-                    });
-                } else if (categoryData.subcategories) {
-                    categoryData.subcategories.forEach(subCategoryData => {
-                        const subCategoryTitle = document.createElement('h3');
-                        subCategoryTitle.className = 'text-xl font-semibold mb-3 text-[#4a2c0f] mt-6';
-                        subCategoryTitle.textContent = subCategoryData.name;
-                        categoryDiv.appendChild(subCategoryTitle);
-
-                        subCategoryData.items.forEach(item => {
-                            const itemDiv = document.createElement('div');
-                            itemDiv.className = 'menu-item';
-                            itemDiv.innerHTML = `
-                                <div class="menu-item-details">
-                                    <p class="menu-item-name">
-                                        <span class="${item.type}-dot"></span>
-                                        ${item.name}
-                                    </p>
-                                    <p class="menu-item-price">Rs. ${item.price}</p>
-                                </div>
-                            `;
-                            categoryDiv.appendChild(itemDiv);
-                        });
-                    });
-                }
-                menuContainer.appendChild(categoryDiv);
-            });
-        });
-    </script>
-</body>
-</html>
+                            <div class="
