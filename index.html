@@ -192,4 +192,108 @@
                             items: [
                                 { name: "Idli (2 Pcs)", price: 30, type: "veg" },
                                 { name: "Poori (2 Pcs)", price: 60, type: "veg" },
-                                { name: "Chappati (
+                                { name: "Chappati (2 Pcs)", price: 60, type: "veg" },
+                                { name: "Kal Dosa", price: 20, type: "veg" },
+                                { name: "Egg Dosa", price: 70, type: "non-veg" },
+                                { name: "Rasam", price: 60, type: "veg" }
+                            ]
+                        },
+                        {
+                            name: "Curries & Gravies",
+                            items: [
+                                { name: "Butter Chicken Masala", price: 250, type: "non-veg" },
+                                { name: "Chicken Curry", price: 250, type: "non-veg" },
+                                { name: "Chicken Pepper Fry", price: 250, type: "non-veg" },
+                                { name: "Paneer Butter Masala", price: 250, type: "veg" },
+                                { name: "Veg Curry", price: 200, type: "veg" },
+                                { name: "Dal Curry (Non-Spicy)", price: 180, type: "veg" }
+                            ]
+                        },
+                        {
+                            name: "Noodles",
+                            items: [
+                                { name: "Egg Noodles", price: 100, type: "non-veg" },
+                                { name: "Veg Noodles", price: 100, type: "veg" }
+                            ]
+                        },
+                        {
+                            name: "Other",
+                            items: [
+                                { name: "Upma", price: 60, type: "veg" },
+                                { name: "Veg Meals", price: 140, type: "veg" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    category: "Beverages",
+                    items: [
+                        { name: "Coffee", price: 50, type: "veg" },
+                        { name: "Tea", price: 50, type: "veg" },
+                        { name: "Lemon Juice", price: 70, type: "veg" },
+                        { name: "Coke", price: 70, type: "veg" },
+                        { name: "Sprite", price: 70, type: "veg" },
+                        { name: "Red Bull", price: 150, type: "veg" },
+                        { name: "Carbonated Water (Soda)", price: 50, type: "veg" },
+                        { name: "Fruit Juice (500ml)", price: 120, type: "veg" },
+                        { name: "Chocolate Milk Shake (500ml)", price: 150, type: "veg" },
+                        { name: "Packaged Water", price: 30, type: "veg" }
+                    ]
+                }
+            ];
+
+            const menuContainer = document.getElementById('menu-items-container');
+
+            menuData.forEach(categoryData => {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'mb-8';
+
+                const categoryTitle = document.createElement('h2');
+                categoryTitle.className = 'text-2xl sm:text-3xl font-bold mb-4 menu-category-title';
+                categoryTitle.textContent = categoryData.category;
+                categoryDiv.appendChild(categoryTitle);
+
+                if (categoryData.items) {
+                    categoryData.items.forEach(item => {
+                        const itemDiv = document.createElement('div');
+                        itemDiv.className = 'menu-item';
+                        itemDiv.innerHTML = `
+                            <div class="menu-item-details">
+                                <p class="menu-item-name">
+                                    <span class="${item.type}-dot"></span>
+                                    ${item.name}
+                                </p>
+                                <p class="menu-item-price">Rs. ${item.price}</p>
+                            </div>
+                        `;
+                        categoryDiv.appendChild(itemDiv);
+                    });
+                } else if (categoryData.subcategories) {
+                    categoryData.subcategories.forEach(subCategoryData => { // Corrected line
+                        const subCategoryTitle = document.createElement('h3');
+                        subCategoryTitle.className = 'text-xl font-semibold mb-3 text-[#4a2c0f] mt-6';
+                        subCategoryTitle.textContent = subCategoryData.name;
+                        categoryDiv.appendChild(subCategoryTitle);
+
+                        subCategoryData.items.forEach(item => {
+                            const itemDiv = document.createElement('div');
+                            itemDiv.className = 'menu-item';
+                            itemDiv.innerHTML = `
+                                <div class="menu-item-details">
+                                    <p class="menu-item-name">
+                                        <span class="${item.type}-dot"></span>
+                                        ${item.name}
+                                    </p>
+                                    <p class="menu-item-price">Rs. ${item.price}</p>
+                                </div>
+                            `;
+                            categoryDiv.appendChild(itemDiv);
+                        });
+                    });
+                }
+                menuContainer.appendChild(categoryDiv);
+            });
+        });
+    </script>
+</body>
+</html>
