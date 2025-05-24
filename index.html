@@ -157,15 +157,10 @@
                 },
                 {
                     category: "Main Courses & Indian Delights",
-                    // Upma and South Indian Veg Meals will now appear as direct items under this main category
-                    // and also has subcategories below
-                    items: [
-                        { name: "Upma", price: 60, type: "veg" },
-                        { name: "South Indian Veg Meals", price: 140, type: "veg" }
-                    ],
+                    // No direct items here; all now go into subcategories
                     subcategories: [
                         {
-                            name: "Rice Varieties", // Renamed from "Rice & Biryani"
+                            name: "Rice Varieties",
                             items: [
                                 { name: "Chicken Biryani", price: 250, type: "non-veg" },
                                 { name: "White Rice", price: 80, type: "veg" },
@@ -173,7 +168,9 @@
                                 { name: "Veg Fried Rice", price: 160, type: "veg" },
                                 { name: "Chicken Fried Rice", price: 200, type: "non-veg" },
                                 { name: "Dal Khichdi", price: 220, type: "veg" },
-                                { name: "Khichdi", price: 60, type: "veg" }
+                                { name: "Khichdi", price: 60, type: "veg" },
+                                // South Indian Veg Meals moved here
+                                { name: "South Indian Veg Meals", price: 140, type: "veg" }
                             ]
                         },
                         {
@@ -184,7 +181,9 @@
                                 { name: "Chappati (2 Pcs)", price: 60, type: "veg" },
                                 { name: "Kal Dosa", price: 20, type: "veg" },
                                 { name: "Egg Dosa", price: 70, type: "non-veg" },
-                                { name: "Rasam", price: 60, type: "veg" }
+                                { name: "Rasam", price: 60, type: "veg" },
+                                // Upma moved here
+                                { name: "Upma", price: 60, type: "veg" }
                             ]
                         },
                         {
@@ -235,7 +234,7 @@
                 categoryTitle.textContent = categoryData.category;
                 categoryDiv.appendChild(categoryTitle);
 
-                // Handle direct items under the category
+                // Handle direct items under the category (if any)
                 if (categoryData.items && categoryData.items.length > 0) {
                     categoryData.items.forEach(item => {
                         const itemDiv = document.createElement('div');
