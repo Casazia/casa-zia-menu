@@ -236,9 +236,54 @@
                 categoryTitle.textContent = categoryData.category;
                 categoryDiv.appendChild(categoryTitle);
 
-                if (categoryData.items) {
+                // Check if the category has direct items or subcategories
+                if (categoryData.items && categoryData.items.length > 0) {
                     categoryData.items.forEach(item => {
                         const itemDiv = document.createElement('div');
                         itemDiv.className = 'menu-item';
                         itemDiv.innerHTML = `
-                            <div class="
+                            <div class="menu-item-details">
+                                <p class="menu-item-name">
+                                    <span class="${item.type}-dot"></span>
+                                    ${item.name}
+                                </p>
+                                <p class="menu-item-price">Rs. ${item.price}</p>
+                            </div>
+                        `;
+                        categoryDiv.appendChild(itemDiv);
+                    });
+                } else if (categoryData.subcategories && categoryData.subcategories.length > 0) {
+                    categoryData.subcategories.forEach(subCategoryData => {
+                        // Only add subcategory title if it has items
+                        if (subCategoryData.items && subCategoryData.items.length > 0) {
+                            const subCategoryTitle = document.createElement('h3');
+                            subCategoryTitle.className = 'text-xl font-semibold mb-3 text-[#4a2c0f] mt-6';
+                            subCategoryTitle.textContent = subCategoryData.name;
+                            categoryDiv.appendChild(subCategoryTitle);
+
+                            subCategoryData.items.forEach(item => {
+                                const itemDiv = document.createElement('div');
+                                itemDiv.className = 'menu-item';
+                                itemDiv.innerHTML = `
+                                    <div class="menu-item-details">
+                                        <p class="menu-item-name">
+                                            <span class="${item.type}-dot"></span>
+                                            ${item.name}
+                                        </p>
+                                        <p class="menu-item-price">Rs. ${item.price}</p>
+                                    </div>
+                                `;
+                                categoryDiv.appendChild(itemDiv);
+                            });
+                        }
+                    });
+                }
+                // Only append the category div if it actually contains items or subcategories with items
+                if (categoryDiv.children.length > 1 || (categoryDiv.children.length === 1 && categoryDiv.querySelector('.menu-item'))) {
+                    menuContainer.appendChild(categoryDiv);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
