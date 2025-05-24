@@ -157,9 +157,15 @@
                 },
                 {
                     category: "Main Courses & Indian Delights",
+                    // Upma and South Indian Veg Meals will now appear as direct items under this main category
+                    // and also has subcategories below
+                    items: [
+                        { name: "Upma", price: 60, type: "veg" },
+                        { name: "South Indian Veg Meals", price: 140, type: "veg" }
+                    ],
                     subcategories: [
                         {
-                            name: "Rice & Biryani",
+                            name: "Rice Varieties", // Renamed from "Rice & Biryani"
                             items: [
                                 { name: "Chicken Biryani", price: 250, type: "non-veg" },
                                 { name: "White Rice", price: 80, type: "veg" },
@@ -198,13 +204,6 @@
                                 { name: "Egg Noodles", price: 100, type: "non-veg" },
                                 { name: "Veg Noodles", price: 100, type: "veg" }
                             ]
-                        },
-                        {
-                            name: "Other",
-                            items: [
-                                { name: "Upma", price: 60, type: "veg" },
-                                { name: "South Indian Veg Meals", price: 140, type: "veg" }
-                            ]
                         }
                     ]
                 },
@@ -236,7 +235,7 @@
                 categoryTitle.textContent = categoryData.category;
                 categoryDiv.appendChild(categoryTitle);
 
-                // Check if the category has direct items or subcategories
+                // Handle direct items under the category
                 if (categoryData.items && categoryData.items.length > 0) {
                     categoryData.items.forEach(item => {
                         const itemDiv = document.createElement('div');
@@ -252,7 +251,10 @@
                         `;
                         categoryDiv.appendChild(itemDiv);
                     });
-                } else if (categoryData.subcategories && categoryData.subcategories.length > 0) {
+                }
+
+                // Handle subcategories within the category
+                if (categoryData.subcategories && categoryData.subcategories.length > 0) {
                     categoryData.subcategories.forEach(subCategoryData => {
                         // Only add subcategory title if it has items
                         if (subCategoryData.items && subCategoryData.items.length > 0) {
