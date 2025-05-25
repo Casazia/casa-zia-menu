@@ -21,19 +21,27 @@
         .menu-item {
             display: flex;
             align-items: center;
-            justify-content: space-between; /* Space out name/price and button */
+            justify-content: space-between; /* Space out details and button group */
             margin-bottom: 0.75rem;
             background-color: #ffffff;
             border-radius: 0.75rem;
             padding: 0.75rem;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
         }
+        /* Changed: Now flex to align text group and price horizontally, centered */
         .menu-item-details {
             flex-grow: 1;
             display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-right: 1rem; /* Space between details and button */
+            align-items: center; /* Vertically align text group and price */
+            justify-content: space-between; /* Space out text group and price */
+            margin-right: 1rem;
+        }
+        /* New: Group for name and description to keep them stacked */
+        .menu-item-text-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            flex-grow: 1; /* Allows it to take available space */
         }
         .menu-item-name {
             font-weight: 600;
@@ -43,11 +51,17 @@
             align-items: center;
             gap: 0.5rem;
         }
+        .menu-item-description { /* New style for descriptions */
+            font-size: 0.875rem;
+            color: #6b7280; /* Gray color for description */
+            margin-top: 0.25rem; /* Small space above description */
+        }
         .menu-item-price {
             font-weight: 700;
             color: #8b5e3c;
             font-size: 1rem;
             white-space: nowrap;
+            /* Removed align-self: flex-end as it's now handled by parent flex */
         }
         .order-info {
             background-color: #fff7ed;
@@ -72,7 +86,7 @@
         }
 
         /* Cart Button Styling */
-        .add-to-cart-btn {
+        .add-btn {
             background-color: #8b5e3c; /* Warm brown */
             color: white;
             padding: 0.35rem 0.75rem; /* Smaller padding */
@@ -83,8 +97,41 @@
             transition: background-color 0.2s ease-in-out;
             white-space: nowrap; /* Prevent text wrap */
         }
-        .add-to-cart-btn:hover {
+        .add-btn:hover {
             background-color: #6a4a2c; /* Darker brown on hover */
+        }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: #f0f0f0; /* Light background for controls */
+            border-radius: 0.5rem;
+            padding: 0.2rem;
+        }
+        .qty-btn {
+            background-color: #e0c29f;
+            color: #4a2c0f;
+            width: 28px; /* Slightly larger buttons */
+            height: 28px;
+            border-radius: 0.4rem; /* Match outer container */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: 700;
+            transition: background-color 0.2s;
+            font-size: 1rem;
+        }
+        .qty-btn:hover {
+            background-color: #d1b08b;
+        }
+        .item-quantity-display {
+            min-width: 20px; /* Ensure space for numbers */
+            text-align: center;
+            font-weight: 600;
+            color: #4a2c0f;
+            font-size: 1rem;
         }
 
         /* Floating Cart Icon */
@@ -185,7 +232,7 @@
             align-items: center;
             gap: 0.5rem;
         }
-        .qty-btn {
+        .qty-btn-modal { /* Renamed to differentiate from menu page buttons */
             background-color: #e0c29f;
             color: #4a2c0f;
             width: 24px;
@@ -198,7 +245,7 @@
             font-weight: 700;
             transition: background-color 0.2s;
         }
-        .qty-btn:hover {
+        .qty-btn-modal:hover {
             background-color: #d1b08b;
         }
         .cart-total {
@@ -221,7 +268,6 @@
                 <li>All our dishes are freshly prepared, either homecooked with care or sourced from trusted local kitchens.</li>
                 <li>Please place your order at least <strong class="text-[#4a2c0f]">1 hour in advance</strong> to allow us time for preparation.</li>
                 <li>The <strong class="text-[#4a2c0f]">last order for the day is at 7:00 PM</strong>.</li>
-                <li>For orders, please contact <strong class="text-[#4a2c0f]">Luke - 9443244055</strong>.</li>
             </ul>
         </div>
 
@@ -232,6 +278,9 @@
             <strong class="text-[#4a2c0f]">Please inform us of any allergies or dietary restrictions.</strong>
         </p>
         <p class="text-center text-gray-600 mt-2">Enjoy your meal!</p>
+        <p class="text-center text-gray-600 mt-4 text-sm">
+            For additional help with orders, please call Luke - 9443244055.
+        </p>
     </div>
 
     <div class="view-cart-float" onclick="openCartModal()">
@@ -255,11 +304,18 @@
             <div class="space-y-3 mb-6">
                 <div>
                     <label for="guest-name" class="block text-sm font-medium text-gray-700">Guest Name:</label>
-                    <input type="text" id="guest-name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-[#e0c29f] focus:border-[#e0c29f]" placeholder="Your Name">
+                    <input type="text" id="guest-name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-[#e0c29f] focus:border-[#e0c29f]" placeholder="Your Name" required>
                 </div>
                 <div>
                     <label for="room-number" class="block text-sm font-medium text-gray-700">Room Number:</label>
-                    <input type="text" id="room-number" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-[#e0c29f] focus:border-[#e0c29f]" placeholder="e.g., 101">
+                    <select id="room-number" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-[#e0c29f] focus:border-[#e0c29f]" required>
+                        <option value="" disabled selected>Select your Room Number</option>
+                        <option value="101">101</option>
+                        <option value="102">102</option>
+                        <option value="201">201</option>
+                        <option value="202">202</option>
+                        <option value="Stargazing Suite">Stargazing Suite</option>
+                    </select>
                 </div>
             </div>
 
@@ -384,16 +440,16 @@
             {
                 category: "Beverages",
                 items: [
-                    { id: 'beverage_coffee', name: "Coffee", price: 30, type: "veg" },
-                    { id: 'beverage_tea', name: "Tea", price: 30, type: "veg" },
-                    { id: 'beverage_lemon_juice', name: "Lemon Juice", price: 70, type: "veg" },
-                    { id: 'beverage_coke', name: "Coke", price: 70, type: "veg" },
-                    { id: 'beverage_sprite', name: "Sprite", price: 70, type: "veg" },
-                    { id: 'beverage_red_bull', price: 150, type: "veg" },
+                    { id: 'beverage_coffee', name: "Coffee", price: 60, type: "veg", description: "Serves 2" },
+                    { id: 'beverage_tea', name: "Tea", price: 60, type: "veg", description: "Serves 2" },
+                    { id: 'beverage_lemon_juice', name: "Lemon Juice", price: 70, type: "veg", description: "Serves 1" },
+                    { id: 'beverage_coke', name: "Coke", price: 70, type: "veg", description: "PET 750ml bottle" },
+                    { id: 'beverage_sprite', name: "Sprite", price: 70, type: "veg", description: "PET 750ml bottle" },
+                    { id: 'beverage_red_bull', name: "Red Bull", price: 150, type: "veg" },
                     { id: 'beverage_carbonated_water', name: "Carbonated Water (Soda)", price: 50, type: "veg" },
                     { id: 'beverage_fruit_juice_500ml', name: "Fruit Juice (500ml)", price: 120, type: "veg" },
                     { id: 'beverage_chocolate_milkshake_500ml', name: "Chocolate Milk Shake (500ml)", price: 150, type: "veg" },
-                    { id: 'beverage_packaged_water', name: "Packaged Water", price: 25, type: "veg" }
+                    { id: 'beverage_packaged_water', name: "Packaged Water", price: 25, type: "veg", description: "1 litre" }
                 ]
             }
         ];
@@ -419,15 +475,30 @@
 
                     const itemDiv = document.createElement('div');
                     itemDiv.className = 'menu-item';
+
+                    // Check if item is already in cart to determine initial display
+                    const itemInCart = cart.find(cartItem => cartItem.id === item.id);
+                    const initialQuantity = itemInCart ? itemInCart.quantity : 0;
+                    const showAddButton = initialQuantity === 0;
+                    const showQtyControls = !showAddButton;
+
                     itemDiv.innerHTML = `
                         <div class="menu-item-details">
-                            <p class="menu-item-name">
-                                <span class="${item.type}-dot"></span>
-                                ${item.name}
-                            </p>
+                            <div class="menu-item-text-group">
+                                <p class="menu-item-name">
+                                    <span class="${item.type}-dot"></span>
+                                    ${item.name}
+                                </p>
+                                ${item.description ? `<p class="menu-item-description">${item.description}</p>` : ''}
+                            </div>
                             <p class="menu-item-price">Rs. ${item.price}</p>
                         </div>
-                        <button class="add-to-cart-btn" data-item-id="${item.id}">Add to Cart</button>
+                        <button id="add-btn-${item.id}" class="add-btn ${showAddButton ? '' : 'hidden'}" data-item-id="${item.id}">Add</button>
+                        <div id="qty-controls-${item.id}" class="qty-controls ${showQtyControls ? '' : 'hidden'}">
+                            <button class="qty-btn" onclick="updateQuantityOnMenu('${item.id}', -1)">-</button>
+                            <span id="item-quantity-display-${item.id}" class="item-quantity-display">${initialQuantity}</span>
+                            <button class="qty-btn" onclick="updateQuantityOnMenu('${item.id}', 1)">+</button>
+                        </div>
                     `;
                     categoryDiv.appendChild(itemDiv);
                 };
@@ -457,28 +528,27 @@
                 }
             });
 
-            // Add event listeners to all "Add to Cart" buttons
-            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+            // Add event listeners for the initial "Add" buttons
+            document.querySelectorAll('.add-btn').forEach(button => {
                 button.addEventListener('click', (event) => {
                     const itemId = event.target.dataset.itemId;
-                    addToCart(itemId);
+                    handleInitialAddToCart(itemId);
                 });
             });
         }
 
         // --- Cart Logic ---
-        function addToCart(itemId) {
-            const existingItemIndex = cart.findIndex(item => item.id === itemId);
-            if (existingItemIndex > -1) {
-                cart[existingItemIndex].quantity++;
-            } else {
-                const itemDetails = allMenuItems[itemId];
-                cart.push({ ...itemDetails, quantity: 1 });
-            }
+
+        // Handles initial add to cart from main menu when "Add" button is clicked
+        function handleInitialAddToCart(itemId) {
+            const itemDetails = allMenuItems[itemId];
+            cart.push({ ...itemDetails, quantity: 1 });
             updateCartDisplay();
+            updateMenuItemQuantityDisplay(itemId); // Show controls, hide "Add"
             showTemporaryMessage('Item added to cart!', 'green');
         }
 
+        // Updates quantity from both main menu and modal
         function updateQuantity(itemId, change) {
             const itemIndex = cart.findIndex(item => item.id === itemId);
             if (itemIndex > -1) {
@@ -486,9 +556,35 @@
                 if (cart[itemIndex].quantity <= 0) {
                     cart.splice(itemIndex, 1); // Remove item if quantity is 0 or less
                 }
+            } else if (change > 0) { // If trying to add an item that's not in cart (e.g., via + button not "Add")
+                const itemDetails = allMenuItems[itemId];
+                cart.push({ ...itemDetails, quantity: 1 });
             }
-            renderCart(); // Re-render the cart modal content
-            updateCartDisplay(); // Update floating cart count
+            updateCartDisplay();
+            renderCart(); // Always re-render modal cart
+            updateMenuItemQuantityDisplay(itemId); // Update main menu display
+        }
+
+        // Updates quantity display for an item on the main menu
+        function updateMenuItemQuantityDisplay(itemId) {
+            const itemInCart = cart.find(cartItem => cartItem.id === itemId);
+            const addBtn = document.getElementById(`add-btn-${itemId}`);
+            const qtyControls = document.getElementById(`qty-controls-${itemId}`);
+            const qtyDisplay = document.getElementById(`item-quantity-display-${itemId}`);
+
+            if (itemInCart && itemInCart.quantity > 0) {
+                if (addBtn) addBtn.classList.add('hidden');
+                if (qtyControls) qtyControls.classList.remove('hidden');
+                if (qtyDisplay) qtyDisplay.textContent = itemInCart.quantity;
+            } else {
+                if (addBtn) addBtn.classList.remove('hidden');
+                if (qtyControls) qtyControls.classList.add('hidden');
+            }
+        }
+
+        // Wrapper function for main menu +/- buttons
+        function updateQuantityOnMenu(itemId, change) {
+            updateQuantity(itemId, change);
         }
 
         function calculateCartTotal() {
@@ -518,9 +614,9 @@
                             <p class="text-sm text-gray-600">Rs. ${item.price} x ${item.quantity}</p>
                         </div>
                         <div class="cart-item-qty-control">
-                            <button class="qty-btn" onclick="updateQuantity('${item.id}', -1)">-</button>
+                            <button class="qty-btn-modal" onclick="updateQuantity('${item.id}', -1)">-</button>
                             <span class="font-bold">${item.quantity}</span>
-                            <button class="qty-btn" onclick="updateQuantity('${item.id}', 1)">+</button>
+                            <button class="qty-btn-modal" onclick="updateQuantity('${item.id}', 1)">+</button>
                         </div>
                     `;
                     cartItemsList.appendChild(cartItemDiv);
@@ -540,14 +636,20 @@
 
         function placeOrder() {
             const guestName = document.getElementById('guest-name').value.trim();
-            const roomNumber = document.getElementById('room-number').value.trim();
+            const roomNumber = document.getElementById('room-number').value.trim(); // .value works for select too
 
             if (cart.length === 0) {
                 showTemporaryMessage('Your cart is empty. Please add items before ordering.', 'red');
                 return;
             }
-            if (!guestName || !roomNumber) {
-                showTemporaryMessage('Please enter your Name and Room Number.', 'red');
+            if (!guestName) {
+                showTemporaryMessage('Please enter your Guest Name.', 'red');
+                document.getElementById('guest-name').focus();
+                return;
+            }
+            if (!roomNumber || roomNumber === 'Select your Room Number') { // Check for default option value
+                showTemporaryMessage('Please select your Room Number.', 'red');
+                document.getElementById('room-number').focus();
                 return;
             }
 
@@ -557,7 +659,7 @@
             orderMessage += `*Order Details:*%0A`;
 
             cart.forEach(item => {
-                orderMessage += `${encodeURIComponent(item.name)} x ${item.quantity} - Rs. ${item.price * item.quantity}%0A`;
+                orderMessage += `${encodeURIComponent(item.name)} x ${item.quantity} - Rs. ${item.price * item.quantity}${item.description ? ` (${item.description})` : ''}%0A`;
             });
 
             orderMessage += `%0A*Total: Rs. ${calculateCartTotal()}*%0A%0A`;
@@ -569,9 +671,11 @@
             // Clear cart and inputs after order is placed
             cart = [];
             document.getElementById('guest-name').value = '';
-            document.getElementById('room-number').value = '';
+            document.getElementById('room-number').value = ''; // Reset select to default option
             updateCartDisplay();
             closeCartModal();
+            // Re-render the menu to reset all quantity controls to 'Add'
+            renderMenu();
             showTemporaryMessage('Order sent to Luke via WhatsApp!', 'green');
         }
 
