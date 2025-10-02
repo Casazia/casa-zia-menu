@@ -369,6 +369,7 @@
 </head>
 <body class="p-6 sm:p-8 md:p-12">
     <div class="max-w-4xl mx-auto container-card">
+        <!-- Decorative SVG Accents -->
         <svg class="svg-accent svg-top-left" viewBox="0 0 200 200" fill="currentColor">
             <path d="M100 0C44.77 0 0 44.77 0 100s44.77 100 100 100 100-44.77 100-100S155.23 0 100 0zm0 180c-44.11 0-80-35.89-80-80s35.89-80 80-80 80 35.89 80 80-35.89 80-80 80zM100 20c-44.11 0-80 35.89-80 80s35.89 80 80 80 80-35.89 80-80-35.89-80-80-80zM100 40c-33.14 0-60 26.86-60 60s26.86 60 60 60 60-26.86 60-60-26.86-60-60-60zM100 60c-22.09 0-40 17.91-40 40s17.91 40 40 40 40-17.91 40-40-17.91-40-40-40zM100 80c-11.05 0-20 8.95-20 20s8.95 20 20 20 20-8.95 20-20-8.95-20-20-20z"/>
         </svg>
@@ -379,14 +380,16 @@
         <h1 class="text-4xl sm:text-5xl font-bold text-center mb-8" style="color: var(--color-text-dark);">Casa Zia Full Dining Menu</h1>
         <p class="text-center text-xl mb-10" style="color: var(--color-text-medium);">Order fresh meals and snacks directly to your room!</p>
 
+        <!-- UPDATED ORDER INFORMATION SECTION -->
         <div class="order-info">
-            <h2 class="text-2xl font-semibold mb-4" style="color: var(--color-accent-main);">Service Timings</h2>
+            <h2 class="text-2xl font-semibold mb-4" style="color: var(--color-accent-main);">Order Information</h2>
             <ul class="list-disc list-inside text-gray-700 space-y-2">
-                <li>**Breakfast & Dinner Items:** Available from **8:30 AM to 7:30 PM**.</li>
-                <li>**Biryani and Non-Veg Meals:** Available exclusively during **Lunch Time (12:00 PM - 2:00 PM)**.</li>
-                <li>Please place your order for room service before **9:00 PM tonight** for next day's breakfast.</li>
+                <li>All our dishes are freshly prepared, either homecooked with care or sourced from trusted local kitchens.</li>
+                <li>Please place your order at least **1 hour in advance** to allow us time for preparation.</li>
+                <li>The **last order** for the day is at **7:30 PM**.</li>
             </ul>
         </div>
+        <!-- END ORDER INFORMATION SECTION -->
 
         <div id="menu-items-container">
             <!-- Menu categories will be dynamically injected here by JavaScript -->
@@ -441,14 +444,12 @@
                     <label for="serving-time" class="block text-sm font-medium text-gray-700 mb-1">Preferred Serving Time:</label>
                     <select id="serving-time" class="block w-full border rounded-md shadow-sm" required>
                         <option value="" disabled selected>Select Time Slot</option>
-                        <option value="8:30 AM - 9:00 AM">8:30 AM - 9:00 AM (Breakfast)</option>
-                        <option value="9:00 AM - 9:30 AM">9:00 AM - 9:30 AM (Breakfast)</option>
-                        <option value="9:30 AM - 10:00 AM">9:30 AM - 10:00 AM (Breakfast)</option>
-                        <option value="10:00 AM - 10:30 AM">10:00 AM - 10:30 AM (Breakfast)</option>
-                        <option value="12:00 PM - 2:00 PM">12:00 PM - 2:00 PM (Lunch - Meals/Biryani only)</option>
-                        <option value="6:00 PM - 6:30 PM">6:00 PM - 6:30 PM (Dinner)</option>
-                        <option value="6:30 PM - 7:00 PM">6:30 PM - 7:00 PM (Dinner)</option>
-                        <option value="7:00 PM - 7:30 PM">7:00 PM - 7:30 PM (Dinner)</option>
+                        <option value="9:00 AM - 10:00 AM">9:00 AM - 10:00 AM (Breakfast)</option>
+                        <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM (Breakfast)</option>
+                        <option value="12:00 PM - 1:00 PM">12:00 PM - 1:00 PM (Lunch)</option>
+                        <option value="1:00 PM - 2:00 PM">1:00 PM - 2:00 PM (Lunch)</option>
+                        <option value="6:00 PM - 7:00 PM">6:00 PM - 7:00 PM (Dinner)</option>
+                        <option value="7:00 PM - 7:30 PM">7:00 PM - 7:30 PM (Dinner - Last Order)</option>
                     </select>
                 </div>
                 <div id="message-box" class="p-3 rounded-md hidden text-center font-medium"></div>
@@ -465,40 +466,43 @@
         let cart = [];
         let allMenuItems = {};
 
-        // --- UPDATED MENU DATA WITH NEW ITEMS, PRICES, AND STRUCTURE ---
+        // --- UPDATED MENU DATA WITH ALL REQUESTED CHANGES ---
         const fullMenuData = {
             'tiffin': {
-                title: '🍽️ Tiffin & Standard Breakfast Items',
+                title: '🍽️ Tiffin & South Indian',
                 items: [
-                    { id: 'idli', name: "Idli", price: 40, description: "2 pieces with sambar and chutney", type: "veg" },
-                    // medhu vadai removed
-                    { id: 'dosa', name: "Dosa", price: 60, description: "Plain Dosa", type: "veg" },
-                    { id: 'masala_dosa', name: "Masala Dosa", price: 80, description: "", type: "veg" },
-                    { id: 'onion_uttapam', name: "Onion Uttapam", price: 90, description: "", type: "veg" },
-                    { id: 'poori_bhaji', name: "Poori Bhaji", price: 110, description: "", type: "veg" },
+                    // All descriptions removed, piece count added to names for clarity
+                    { id: 'idli', name: "Idli (2 Pcs)", price: 40, description: "", type: "veg" },
+                    { id: 'dosa', name: "Plain Dosa", price: 60, description: "", type: "veg" },
+                    // Replaced Masala Dosa with Egg Dosa
+                    { id: 'egg_dosa', name: "Egg Dosa", price: 80, description: "", type: "non-veg" }, 
+                    // Onion Uttapam and Poori Bhaji removed
                     { id: 'toast', name: "Plain Toast with Jam", price: 40, description: "", type: "veg" },
+                ]
+            },
+            'soups': {
+                title: '🍲 Soups', // NEW SECTION ADDED
+                items: [
+                    { id: 'sweet_corn_chicken_soup', name: "Sweet Corn Chicken Soup", price: 160, description: "", type: "non-veg" },
+                    { id: 'sweet_corn_veg_soup', name: "Sweet Corn Veg Soup", price: 140, description: "", type: "veg" },
                 ]
             },
             'eggs_sandwiches': {
                 title: '🥚 Eggs, Omelettes & Sandwiches',
                 items: [
-                    { id: 'boiled_egg', name: "Boiled Egg", price: 15, description: "1 piece", type: "non-veg" },
-                    { id: 'sunny_side', name: "Sunny Side Up", price: 30, description: "2 eggs", type: "non-veg" },
-                    { id: 'egg_bhurji', name: "Egg Bhurji", price: 80, description: "Scrambled eggs Indian style", type: "non-veg" },
-                    { id: 'masala_omlette', name: "Masala Omlette", price: 80, description: "Onion, chili, coriander", type: "non-veg" }, // ADDED
-                    // Mexican and mushroom cheese omlette removed
-                    { id: 'onion_omlette', name: "Onion Omelette", price: 60, description: "2 eggs", type: "non-veg" },
-                    { id: 'cheese_omlette', name: "Cheese Omelette", price: 130, description: "2 eggs with mozzarella", type: "veg" },
-                    
+                    { id: 'boiled_egg', name: "Boiled Egg (1 Pc)", price: 15, description: "", type: "non-veg" },
+                    { id: 'sunny_side', name: "Sunny Side Up (2 Eggs)", price: 30, description: "", type: "non-veg" },
+                    { id: 'egg_bhurji', name: "Egg Bhurji", price: 80, description: "", type: "non-veg" },
+                    { id: 'masala_omlette', name: "Masala Omlette", price: 80, description: "", type: "non-veg" }, 
+                    { id: 'onion_omlette', name: "Onion Omelette (2 Eggs)", price: 60, description: "", type: "non-veg" },
+                    { id: 'cheese_omlette', name: "Cheese Omelette (2 Eggs)", price: 130, description: "", type: "veg" },
                     { id: 'plain_maggi', name: "Plain Maggi", price: 60, description: "", type: "veg" },
-                    { id: 'egg_maggi', name: "Egg Maggi", price: 80, description: "", type: "non-veg" }, // Price change to 80
+                    { id: 'egg_maggi', name: "Egg Maggi", price: 80, description: "", type: "non-veg" }, 
                     { id: 'cheese_maggi', name: "Cheese Maggi", price: 80, description: "", type: "veg" },
-
-                    { id: 'french_fries', name: "French Fries", price: 100, description: "Crispy salted fries", type: "veg" }, // ADDED
+                    { id: 'french_fries', name: "French Fries", price: 100, description: "", type: "veg" }, 
                     { id: 'veg_sandwich', name: "Veg Sandwich", price: 140, description: "", type: "veg" },
-                    // Chicken sandwich replaced by the next item
-                    { id: 'chicken_sandwich_fries', name: "Chicken Sandwich & Fries", price: 250, description: "Grilled chicken sandwich with a side of fries", type: "non-veg" }, // ADDED
-                    { id: 'chilli_cheese_sandwich', name: "Chilli Cheese Sandwich", price: 140, description: "Spicy and cheesy", type: "veg" }, // ADDED
+                    { id: 'chicken_sandwich_fries', name: "Chicken Sandwich & Fries", price: 250, description: "", type: "non-veg" }, 
+                    { id: 'chilli_cheese_sandwich', name: "Chilli Cheese Sandwich", price: 140, description: "", type: "veg" }, 
                     { id: 'corn_cheese_sandwich', name: "Corn and Cheese Sandwich", price: 130, description: "", type: "veg" },
                 ]
             },
@@ -506,40 +510,42 @@
                 title: '🍛 Main Course: Curries & Accompaniments',
                 items: [
                     { id: 'butter_chicken', name: "Butter Chicken Masala", price: 250, description: "", type: "non-veg" },
-                    { id: 'kadai_chicken', name: "Kadai Chicken", price: 250, description: "Rich, spicy Indian gravy", type: "non-veg" }, // ADDED
-                    { id: 'chicken_curry', name: "Chicken Curry", price: 250, description: "Classic Home Style", type: "non-veg" },
-                    { id: 'pepper_chicken', name: "Pepper Chicken (Dry/Gravy)", price: 250, description: "Spicy black pepper roast/curry", type: "non-veg" }, // Name Change
-                    { id: 'egg_curry', name: "Egg Curry", price: 180, description: "Boiled eggs in rich gravy", type: "non-veg" }, // ADDED
+                    { id: 'kadai_chicken', name: "Kadai Chicken", price: 250, description: "", type: "non-veg" }, 
+                    { id: 'chicken_curry', name: "Chicken Curry (Home Style)", price: 250, description: "", type: "non-veg" },
+                    { id: 'pepper_chicken', name: "Pepper Chicken (Dry/Gravy)", price: 250, description: "", type: "non-veg" }, 
+                    { id: 'egg_curry', name: "Egg Curry", price: 180, description: "", type: "non-veg" }, 
                     { id: 'paneer_butter', name: "Paneer Butter Masala", price: 250, description: "", type: "veg" },
-                    { id: 'veg_curry', name: "Veg Curry (Mixed)", price: 200, description: "Seasonal vegetables", type: "veg" },
+                    { id: 'veg_curry', name: "Veg Curry (Mixed)", price: 200, description: "", type: "veg" },
                     { id: 'dal_curry', name: "Dal Curry (Non-Spicy)", price: 180, description: "", type: "veg" },
-                    { id: 'rasam', name: "Rasam", price: 60, description: "Spicy South Indian soup", type: "veg" },
+                    { id: 'rasam', name: "Rasam", price: 60, description: "", type: "veg" },
                 ]
             },
             'rice_meals': {
-                title: '🍚 Rice, Noodles & Meals',
+                title: '🍚 Rice, Khichdi & Noodles',
                 items: [
-                    { id: 'chicken_biryani', name: "Chicken Biryani", price: 250, description: "Available 12 PM - 2 PM", type: "non-veg" },
-                    { id: 'non_veg_meals', name: "Non-Veg Meals", price: 250, description: "Includes rice, curry, and sides. Available 12 PM - 2 PM", type: "non-veg" }, // ADDED
-                    { id: 'kuska_rice', name: "Kuska Rice (Non-Veg)", price: 160, description: "Biryani rice without meat", type: "non-veg" }, // ADDED
-                    { id: 'white_rice', name: "White Rice (Plain)", price: 60, description: "", type: "veg" }, // Price Change 60
-                    { id: 'curd_rice', name: "Curd Rice", price: 80, description: "", type: "veg" }, // Price Change 80
+                    { id: 'chicken_biryani', name: "Chicken Biryani", price: 250, description: "", type: "non-veg" },
+                    { id: 'non_veg_meals', name: "Non-Veg Meals (Lunch Only)", price: 250, description: "", type: "non-veg" }, 
+                    // NEW ITEM
+                    { id: 'dal_khichdi', name: "Dal Khichdi", price: 220, description: "", type: "veg" }, 
+                    { id: 'kuska_rice', name: "Kuska Rice (Non-Veg)", price: 160, description: "", type: "non-veg" }, 
+                    { id: 'white_rice', name: "White Rice (Plain)", price: 60, description: "", type: "veg" }, 
+                    { id: 'curd_rice', name: "Curd Rice", price: 80, description: "", type: "veg" }, 
                     { id: 'veg_fried_rice', name: "Veg Fried Rice", price: 160, description: "", type: "veg" },
-                    { id: 'paneer_fried_rice', name: "Panneer Fried Rice", price: 200, description: "", type: "veg" }, // ADDED
+                    { id: 'paneer_fried_rice', name: "Panneer Fried Rice", price: 200, description: "", type: "veg" }, 
                     { id: 'chicken_fried_rice', name: "Chicken Fried Rice", price: 200, description: "", type: "non-veg" },
-                    { id: 'egg_fried_rice', name: "Egg Fried Rice", price: 180, description: "", type: "non-veg" }, // ADDED
+                    { id: 'egg_fried_rice', name: "Egg Fried Rice", price: 180, description: "", type: "non-veg" }, 
                     { id: 'egg_noodles', name: "Egg Noodles", price: 100, description: "", type: "non-veg" },
                     { id: 'veg_noodles', name: "Veg Noodles", price: 100, description: "", type: "veg" },
-                    { id: 'egg_dosa', name: "Egg Dosa", price: 70, description: "1 piece", type: "non-veg" },
                 ]
             },
             'breads': {
                 title: '🍞 Indian Breads',
                 items: [
-                    { id: 'roti', name: "Plain Roti", price: 20, description: "1 piece", type: "veg" },
-                    { id: 'butter_roti', name: "Butter Roti", price: 25, description: "1 piece", type: "veg" },
-                    { id: 'butter_naan', name: "Butter Naan", price: 50, description: "1 piece", type: "veg" },
-                    { id: 'garlic_naan', name: "Garlic Naan", price: 60, description: "1 piece", type: "veg" },
+                    // Naans removed
+                    { id: 'chapati', name: "Chapati (2 Pcs)", price: 60, description: "", type: "veg" }, // ADDED
+                    { id: 'poori_2pcs', name: "Poori (2 Pcs)", price: 60, description: "", type: "veg" }, // ADDED
+                    { id: 'roti', name: "Plain Roti (1 Pc)", price: 20, description: "", type: "veg" },
+                    { id: 'butter_roti', name: "Butter Roti (1 Pc)", price: 25, description: "", type: "veg" },
                 ]
             },
             'beverages_snacks': {
@@ -547,25 +553,24 @@
                 items: [
                     { id: 'hot_tea', name: "Hot Tea", price: 30, description: "", type: "veg" },
                     { id: 'coffee', name: "Coffee", price: 40, description: "", type: "veg" },
-                    { id: 'milk', name: "Milk", price: 30, description: "1 serving", type: "veg" }, // ADDED
+                    { id: 'milk', name: "Milk (1 Serving)", price: 30, description: "", type: "veg" }, 
                     { id: 'cold_coffee', name: "Cold Coffee", price: 120, description: "", type: "veg" },
-                    { id: 'thumbs_up', name: "Thumbs Up (200ml)", price: 30, description: "", type: "veg" }, // ADDED
-                    { id: 'americano_basil', name: "Americano Basil Fruit Drink", price: 150, description: "", type: "veg" }, // ADDED
-                    { id: 'nata_de_coco', name: "Nata de Coco Fruit Drink", price: 100, description: "", type: "veg" }, // ADDED
-                    { id: 'monster', name: "Monster Energy Drink", price: 200, description: "", type: "veg" }, // ADDED
-                    // Fruit juice 500ml removed
-                    { id: 'tropicana_ltr', name: "Tropicana 1 Ltr Fruit Juice", price: 180, description: "", type: "veg" }, // ADDED
+                    { id: 'thumbs_up', name: "Thumbs Up (200ml)", price: 30, description: "", type: "veg" }, 
+                    { id: 'americano_basil', name: "Americano Basil Fruit Drink", price: 150, description: "", type: "veg" }, 
+                    { id: 'nata_de_coco', name: "Nata de Coco Fruit Drink", price: 100, description: "", type: "veg" }, 
+                    { id: 'monster', name: "Monster Energy Drink", price: 200, description: "", type: "veg" }, 
+                    { id: 'tropicana_ltr', name: "Tropicana 1 Ltr Fruit Juice", price: 180, description: "", type: "veg" }, 
                     { id: 'fresh_lime', name: "Fresh Lime Soda", price: 80, description: "", type: "veg" },
-                    { id: 'lays', name: "Lays", price: 50, description: "Assorted flavors", type: "veg" }, // ADDED
-                    { id: 'oreo', name: "Oreo", price: 50, description: "Standard pack", type: "veg" }, // ADDED
-                    { id: 'hide_seek', name: "Hide & Seek", price: 50, description: "Standard pack", type: "veg" }, // ADDED
-                    { id: 'cream_wafer', name: "Cream Wafer", price: 100, description: "Family pack", type: "veg" }, // ADDED
+                    { id: 'lays', name: "Lays", price: 50, description: "", type: "veg" }, 
+                    { id: 'oreo', name: "Oreo", price: 50, description: "", type: "veg" }, 
+                    { id: 'hide_seek', name: "Hide & Seek", price: 50, description: "", type: "veg" }, 
+                    { id: 'cream_wafer', name: "Cream Wafer", price: 100, description: "", type: "veg" }, 
                 ]
             },
             'desserts': {
                 title: '🍦 Desserts',
                 items: [
-                    { id: 'gulab_jamun', name: "Gulab Jamun", price: 70, description: "2 pieces", type: "veg" },
+                    // Gulab Jamun removed, resulting in an empty section
                 ]
             }
         };
@@ -573,6 +578,8 @@
         // --- CORE APPLICATION LOGIC ---
 
         function flattenMenuData() {
+            // Clears and repopulates the lookup table based on current menu data
+            allMenuItems = {};
             Object.values(fullMenuData).forEach(category => {
                 category.items.forEach(item => {
                     allMenuItems[item.id] = item;
@@ -587,6 +594,8 @@
             flattenMenuData(); // Ensure allMenuItems is up-to-date
 
             Object.values(fullMenuData).forEach(category => {
+                if (category.items.length === 0) return; // Skip empty categories
+
                 // Category Title Section
                 const categoryDiv = document.createElement('div');
                 categoryDiv.className = 'mb-10';
@@ -605,6 +614,8 @@
                     const showAddButton = initialQuantity === 0;
                     const showQtyControls = !showAddButton;
 
+                    // Note: Descriptions are now empty strings but kept in the object for consistency
+                    // and the render logic handles the empty string by not rendering the description tag.
                     itemDiv.innerHTML = `
                         <div class="flex items-center space-x-4 flex-grow">
                             <div class="${item.type}-dot flex-shrink-0"></div>
@@ -638,175 +649,204 @@
         // --- Cart Logic ---
 
         function calculateTotal() {
-            return cart.reduce((total, item) => {
-                const itemDetails = allMenuItems[item.id];
-                return total + (itemDetails.price * item.quantity);
-            }, 0);
-        }
-
-        function handleInitialAddToCart(itemId) {
-            const itemDetails = allMenuItems[itemId];
-            cart.push({ id: itemId, name: itemDetails.name, quantity: 1, price: itemDetails.price });
-            updateCartDisplay();
-            updateMenuItemQuantityDisplay(itemId);
-            showTemporaryMessage('Item added to your order!', 'green');
-        }
-
-        function updateQuantity(itemId, change) {
-            const itemIndex = cart.findIndex(item => item.id === itemId);
-            if (itemIndex > -1) {
-                cart[itemIndex].quantity += change;
-                if (cart[itemIndex].quantity <= 0) {
-                    cart.splice(itemIndex, 1);
-                }
-            } else if (change > 0) {
-                const itemDetails = allMenuItems[itemId];
-                cart.push({ id: itemId, name: itemDetails.name, quantity: 1, price: itemDetails.price });
-            }
-            updateCartDisplay();
-            renderCart();
-            updateMenuItemQuantityDisplay(itemId);
-        }
-
-        function updateMenuItemQuantityDisplay(itemId) {
-            const itemInCart = cart.find(cartItem => cartItem.id === itemId);
-            const addBtn = document.getElementById(`add-btn-${itemId}`);
-            const qtyControls = document.getElementById(`qty-controls-${itemId}`);
-            const qtyDisplay = document.getElementById(`item-quantity-display-${itemId}`);
-
-            if (itemInCart && itemInCart.quantity > 0) {
-                if (addBtn) addBtn.classList.add('hidden');
-                if (qtyControls) qtyControls.classList.remove('hidden');
-                if (qtyDisplay) qtyDisplay.textContent = itemInCart.quantity;
-            } else {
-                if (addBtn) addBtn.classList.remove('hidden');
-                if (qtyControls) qtyControls.classList.add('hidden');
-            }
-        }
-
-        function updateQuantityOnMenu(itemId, change) {
-            updateQuantity(itemId, change);
+            return cart.reduce((total, item) => total + (allMenuItems[item.id].price * item.quantity), 0);
         }
 
         function updateCartDisplay() {
-            const cartItemCount = document.getElementById('cart-item-count');
-            const totalItemsInCart = cart.reduce((sum, item) => sum + item.quantity, 0);
-            cartItemCount.textContent = totalItemsInCart;
-            cartItemCount.style.display = totalItemsInCart > 0 ? 'inline-flex' : 'none';
-        }
+            const total = calculateTotal();
+            document.getElementById('cart-total-price').textContent = `Rs. ${total}`;
+            document.getElementById('cart-item-count').textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-        function renderCart() {
-            const cartItemsList = document.getElementById('cart-items-list');
-            cartItemsList.innerHTML = '';
-            document.getElementById('cart-total-price').textContent = `Rs. ${calculateTotal()}`;
+            const cartList = document.getElementById('cart-items-list');
+            cartList.innerHTML = '';
 
             if (cart.length === 0) {
-                cartItemsList.innerHTML = '<p class="text-gray-500 text-center py-4">Your order is empty.</p>';
-                document.getElementById('cart-total-price').textContent = 'Rs. 0';
+                cartList.innerHTML = '<p class="text-center text-gray-500 italic py-4">Your order is currently empty.</p>';
             } else {
                 cart.forEach(item => {
-                    const itemDetails = allMenuItems[item.id];
+                    const menuItem = allMenuItems[item.id];
+                    const itemTotal = menuItem.price * item.quantity;
+
                     const cartItemDiv = document.createElement('div');
                     cartItemDiv.className = 'cart-item-modal';
                     cartItemDiv.innerHTML = `
                         <div class="cart-item-info">
-                            <p class="font-semibold">${item.name} <span class="text-sm text-gray-500">(Rs. ${item.price})</span></p>
-                            ${itemDetails.description ? `<p class="text-sm text-gray-600">${itemDetails.description}</p>` : ''}
+                            <p class="font-semibold">${menuItem.name}</p>
+                            <span class="text-sm text-gray-500">Rs. ${menuItem.price} x ${item.quantity} = Rs. ${itemTotal}</span>
                         </div>
                         <div class="cart-item-qty-control">
-                            <button class="qty-btn-modal" onclick="updateQuantity('${item.id}', -1)">-</button>
-                            <span class="font-bold w-4 text-center">${item.quantity}</span>
-                            <button class="qty-btn-modal" onclick="updateQuantity('${item.id}', 1)">+</button>
+                            <button class="qty-btn-modal" onclick="updateQuantityInModal('${item.id}', -1)">-</button>
+                            <span class="item-quantity-display">${item.quantity}</span>
+                            <button class="qty-btn-modal" onclick="updateQuantityInModal('${item.id}', 1)">+</button>
                         </div>
                     `;
-                    cartItemsList.appendChild(cartItemDiv);
+                    cartList.appendChild(cartItemDiv);
                 });
             }
         }
 
+        function handleInitialAddToCart(itemId) {
+            updateCart(itemId, 1);
+            
+            // Toggle visibility on the menu directly
+            const addBtn = document.getElementById(`add-btn-${itemId}`);
+            const qtyControls = document.getElementById(`qty-controls-${itemId}`);
+            const qtyDisplay = document.getElementById(`item-quantity-display-${itemId}`);
+
+            if (addBtn && qtyControls && qtyDisplay) {
+                addBtn.classList.add('hidden');
+                qtyControls.classList.remove('hidden');
+                qtyDisplay.textContent = 1;
+            }
+        }
+
+        function updateQuantityOnMenu(itemId, delta) {
+            updateCart(itemId, delta);
+
+            const itemInCart = cart.find(item => item.id === itemId);
+            const newQuantity = itemInCart ? itemInCart.quantity : 0;
+            
+            // Update the menu quantity controls
+            const addBtn = document.getElementById(`add-btn-${itemId}`);
+            const qtyControls = document.getElementById(`qty-controls-${itemId}`);
+            const qtyDisplay = document.getElementById(`item-quantity-display-${itemId}`);
+
+            if (qtyDisplay) {
+                qtyDisplay.textContent = newQuantity;
+            }
+
+            // Hide/Show Add button based on quantity
+            if (newQuantity === 0) {
+                if (addBtn) addBtn.classList.remove('hidden');
+                if (qtyControls) qtyControls.classList.add('hidden');
+            } else {
+                if (addBtn) addBtn.classList.add('hidden');
+                if (qtyControls) qtyControls.classList.remove('hidden');
+            }
+        }
+
+        function updateQuantityInModal(itemId, delta) {
+            updateCart(itemId, delta);
+            updateCartDisplay();
+            // Also refresh the main menu controls
+            updateQuantityOnMenu(itemId, 0); // Pass 0 to just refresh display without changing quantity
+        }
+
+        function updateCart(itemId, delta) {
+            const existingItem = cart.find(item => item.id === itemId);
+
+            if (existingItem) {
+                existingItem.quantity += delta;
+                if (existingItem.quantity <= 0) {
+                    cart = cart.filter(item => item.id !== itemId);
+                }
+            } else if (delta > 0) {
+                cart.push({ id: itemId, quantity: delta });
+            }
+            // Sort cart by item name for cleaner display
+            cart.sort((a, b) => allMenuItems[a.id].name.localeCompare(allMenuItems[b.id].name));
+            updateCartDisplay();
+        }
+
+
+        // --- Modal Control ---
+
         function openCartModal() {
+            updateCartDisplay();
             document.getElementById('cart-modal-overlay').classList.add('show');
-            renderCart();
         }
 
         function closeCartModal() {
             document.getElementById('cart-modal-overlay').classList.remove('show');
-            // Hide message box when closing modal
-            document.getElementById('message-box').classList.add('hidden');
+            // Clear message box on close
+            const messageBox = document.getElementById('message-box');
+            messageBox.classList.add('hidden');
+            messageBox.textContent = '';
         }
 
-        function showTemporaryMessage(message, type) {
-            const msgBox = document.getElementById('message-box');
-            msgBox.textContent = message;
-            msgBox.classList.remove('hidden', 'bg-red-100', 'text-red-700', 'bg-green-100', 'text-green-700');
-            
-            if (type === 'red') {
-                msgBox.classList.add('bg-red-100', 'text-red-700');
-            } else {
-                msgBox.classList.add('bg-green-100', 'text-green-700');
-            }
-
-            // Hide after 3 seconds
-            setTimeout(() => {
-                msgBox.classList.add('hidden');
-            }, 3000);
-        }
+        // --- Order Submission ---
 
         function placeOrder() {
             const guestName = document.getElementById('guest-name').value.trim();
-            const roomNumber = document.getElementById('room-number').value.trim();
-            const servingTime = document.getElementById('serving-time').value.trim();
-            const total = calculateTotal();
+            const roomNumber = document.getElementById('room-number').value;
+            const servingTime = document.getElementById('serving-time').value;
+            const messageBox = document.getElementById('message-box');
+
+            messageBox.classList.add('hidden');
+            messageBox.textContent = '';
 
             if (cart.length === 0) {
-                showTemporaryMessage('Your order is empty. Please add items before confirming.', 'red');
-                return;
-            }
-            if (!guestName) {
-                showTemporaryMessage('Please enter your Guest Name.', 'red');
-                document.getElementById('guest-name').focus();
-                return;
-            }
-            if (!roomNumber || roomNumber === 'Select your Room Number') {
-                showTemporaryMessage('Please select your Room Number.', 'red');
-                document.getElementById('room-number').focus();
-                return;
-            }
-            if (!servingTime || servingTime === 'Select Time Slot') {
-                showTemporaryMessage('Please select a Preferred Serving Time.', 'red');
-                document.getElementById('serving-time').focus();
+                showMessage("Your cart is empty. Please add items to order.", 'bg-red-100 text-red-700');
                 return;
             }
 
-            let orderMessage = `*NEW DINING ORDER from Casa Zia!*%0A%0A`;
-            orderMessage += `*Guest:* ${encodeURIComponent(guestName)}%0A`;
-            orderMessage += `*Room:* ${encodeURIComponent(roomNumber)}%0A`;
-            orderMessage += `*Preferred Serving Time:* ${encodeURIComponent(servingTime)}%0A%0A`;
-            orderMessage += `*Order Details:*%0A`;
+            if (!guestName || !roomNumber || !servingTime) {
+                showMessage("Please fill in your Name, Room Number, and Preferred Serving Time to proceed.", 'bg-red-100 text-red-700');
+                return;
+            }
 
-            cart.forEach(item => {
-                orderMessage += `${encodeURIComponent(item.name)} x ${item.quantity} (Rs. ${item.price * item.quantity})%0A`;
-            });
+            const orderDetails = cart.map(item => {
+                const menuItem = allMenuItems[item.id];
+                return `${item.quantity}x ${menuItem.name} (Rs. ${menuItem.price})`;
+            }).join('\n');
 
-            orderMessage += `%0A*TOTAL ORDER AMOUNT:* *Rs. ${total}*%0A`;
-            orderMessage += `_Please confirm availability and cost with the guest._`;
+            const total = calculateTotal();
+            
+            const message = 
+`*New Food Order Request*
+---
+*Guest:* ${guestName}
+*Room:* ${roomNumber}
+*Time:* ${servingTime}
+---
+*Order Details:*
+${orderDetails}
+---
+*TOTAL:* Rs. ${total}
+---
+*Note: This order is placed at least 1 hour in advance and before 7:30 PM.*`;
 
-            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${orderMessage}`;
+            // Use the clipboard API if available, otherwise fallback (though clipboard API is usually restricted in iframes)
+            try {
+                // Since navigator.clipboard is often restricted in sandboxed environments, we rely on the link opening
+                // document.execCommand('copy') is also unreliable and deprecated, so we focus on the WhatsApp link.
+            } catch (err) {
+                console.error('Could not copy text to clipboard:', err);
+            }
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+
             window.open(whatsappUrl, '_blank');
-
-            // Optionally clear cart and close modal after sending to WhatsApp
-            // We won't clear immediately, in case WhatsApp fails to open.
-            // showTemporaryMessage('Order sent to WhatsApp! Waiting for confirmation...', 'green');
+            
+            showMessage("Order summary generated! Please confirm and send the message on WhatsApp.", 'bg-green-100 text-green-700');
+            // Optionally, clear the cart and close modal after a short delay
+            // setTimeout(() => {
+            //     cart = [];
+            //     updateCartDisplay();
+            //     renderMenu();
+            //     closeCartModal();
+            // }, 3000);
         }
 
-        // Initial setup
-        window.onload = () => {
+        function showMessage(text, className) {
+            const messageBox = document.getElementById('message-box');
+            messageBox.className = `p-3 rounded-xl block font-medium mt-4 ${className}`;
+            messageBox.textContent = text;
+        }
+
+
+        // Initial setup on window load
+        window.onload = function() {
             renderMenu();
-            updateCartDisplay();
         };
 
-        // Initialize menu on script load
-        renderMenu();
+        // Enable closing modal on ESC key
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                closeCartModal();
+            }
+        });
     </script>
 </body>
 </html>
