@@ -380,7 +380,8 @@
                 category: "Salads",
                 items: [
                     { id: 'salad_veg', name: "Veg Salad", price: 200, type: "veg" },
-                                   ]
+                  
+                ]
             },
             {
                 category: "Main Courses & Indian Delights",
@@ -399,9 +400,9 @@
                         ]
                     },
                     {
-                        name: "Dinner & Accompaniments",
+                        name: "Indian Breads & Accompaniments",
                         items: [
-                            { id: 'bread_idli', name: "Idli (2 Pcs)", price: 40, type: "veg" },
+                            { id: 'bread_idli', name: "Idli (2 Pcs)", price: 30, type: "veg" },
                             { id: 'bread_poori', name: "Poori (2 Pcs)", price: 60, type: "veg" },
                             { id: 'bread_chappati', name: "Chappati (2 Pcs)", price: 60, type: "veg" },
                             { id: 'bread_kal_dosa', name: "Kal Dosa", price: 20, type: "veg" },
@@ -430,8 +431,7 @@
                     }
                 ]
             },
-            {
-                category: beverages_snacks: {
+           beverages_snacks: {
   title: "Beverages & Snacks",
   items: [
     { id: "hottea", name: "Hot Tea", price: 30, description: "", type: "veg" },
@@ -451,9 +451,7 @@
   ]
 },
 
-        ];
-
-        // Function to render the menu
+         // Function to render the menu
         function renderMenu() {
             const menuContainer = document.getElementById('menu-items-container');
             menuContainer.innerHTML = ''; // Clear existing menu
