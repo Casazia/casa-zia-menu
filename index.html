@@ -380,7 +380,6 @@
                 category: "Salads",
                 items: [
                     { id: 'salad_veg', name: "Veg Salad", price: 200, type: "veg" },
-                  
                 ]
             },
             {
@@ -400,7 +399,7 @@
                         ]
                     },
                     {
-                        name: "Indian Breads & Accompaniments",
+                        name: "Dinner",
                         items: [
                             { id: 'bread_idli', name: "Idli (2 Pcs)", price: 30, type: "veg" },
                             { id: 'bread_poori', name: "Poori (2 Pcs)", price: 60, type: "veg" },
@@ -431,27 +430,23 @@
                     }
                 ]
             },
-           beverages_snacks: {
-  title: "Beverages & Snacks",
-  items: [
-    { id: "hottea", name: "Hot Tea", price: 30, description: "", type: "veg" },
-    { id: "coffee", name: "Coffee", price: 40, description: "", type: "veg" },
-    { id: "milk", name: "Milk 1 Serving", price: 30, description: "", type: "veg" },
-    { id: "coldcoffee", name: "Cold Coffee", price: 120, description: "", type: "veg" },
-    { id: "thumbsup", name: "Thumbs Up 200ml", price: 30, description: "", type: "veg" },
-    { id: "americanobasil", name: "Americano Basil Fruit Drink", price: 150, description: "", type: "veg" },
-    { id: "natadecoco", name: "Nata de Coco Fruit Drink", price: 100, description: "", type: "veg" },
-    { id: "monster", name: "Monster Energy Drink", price: 200, description: "", type: "veg" },
-    { id: "tropicanaltr", name: "Tropicana 1 Ltr Fruit Juice", price: 180, description: "", type: "veg" },
-    { id: "freshlime", name: "Fresh Lime Soda", price: 80, description: "", type: "veg" },
-    { id: "lays", name: "Lays", price: 50, description: "", type: "veg" },
-    { id: "oreo", name: "Oreo", price: 50, description: "", type: "veg" },
-    { id: "hideseek", name: "Hide Seek", price: 50, description: "", type: "veg" },
-    { id: "creamwafer", name: "Cream Wafer", price: 100, description: "", type: "veg" }
-  ]
-},
+            {
+                category: "Beverages",
+                items: [
+                    { id: 'beverage_coffee', name: "Coffee", price: 60, type: "veg", description: "Serves 2" },
+                    { id: 'beverage_tea', name: "Tea", price: 60, type: "veg", description: "Serves 2" },
+                    { id: 'beverage_lemon_juice', name: "Lemon Juice", price: 70, type: "veg", description: "Serves 1" },
+                    { id: 'beverage_coke', name: "Coke", price: 70, type: "veg", description: "PET 750ml bottle" },
+                    { id: 'beverage_sprite', name: "Sprite", price: 70, type: "veg", description: "PET 750ml bottle" },
+                    { id: 'beverage_red_bull', name: "Red Bull", price: 150, type: "veg" },
+                    { id: 'beverage_carbonated_water', name: "Carbonated Water (Soda)", price: 50, type: "veg" },
+                    { id: 'beverage_fruit_juice_500ml', name: "Fruit Juice (500ml)", price: 150, type: "veg" },
+                    { id: 'beverage_packaged_water', name: "Packaged Water", price: 25, type: "veg", description: "1 litre" }
+                ]
+            }
+        ];
 
-         // Function to render the menu
+        // Function to render the menu
         function renderMenu() {
             const menuContainer = document.getElementById('menu-items-container');
             menuContainer.innerHTML = ''; // Clear existing menu
