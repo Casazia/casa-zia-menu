@@ -3,232 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa Zia Full Dining Menu</title>
+    <title>Casa Zia Guest Menu</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --color-bg-primary: #F9F7F5; /* Very light cream/off-white */
-            --color-text-dark: #2C3E50; /* Deep Charcoal/Navy */
-            --color-text-medium: #6B7280; /* Muted gray for descriptions */
-            --color-accent-main: #4A6E55; /* Sophisticated Forest Green */
-            --color-accent-light: #C8D6C0; /* Lighter green for subtle elements */
-            --color-button-add: #6C5A4A; /* Rich, muted brown for Add button */
-            --color-button-add-hover: #5A4C3C; /* Darker brown on hover */
-            --color-button-confirm: #4A6E55; /* Consistent green for confirm */
-            --color-button-confirm-hover: #3B5A44; /* Darker green on hover */
-            --color-border-subtle: #E0E0E0; /* Light gray for borders */
-            --color-item-bg: #FFFFFF; /* Pure white for item backgrounds */
-            --color-modal-bg: #FFFFFF; /* Pure white for modal background */
-            --color-dot-veg: #4CAF50; /* Brighter green for veg dot */
-            --color-dot-nonveg: #E57373; /* Softer red for non-veg dot */
-        }
-
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--color-bg-primary);
-            color: var(--color-text-dark);
-            line-height: 1.6;
+            background-color: #f8f5f0; /* Light cream background */
+            color: #333;
         }
-        h1, h2, h3 {
-            color: var(--color-text-dark);
-        }
-        .container-card {
-            background-color: var(--color-item-bg);
-            border-radius: 1.25rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            padding: 2.5rem;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        .svg-accent {
-            position: absolute;
-            opacity: 0.05;
-            z-index: -1;
-            pointer-events: none;
-        }
-        .svg-top-left {
-            top: -20px;
-            left: -20px;
-            width: 150px;
-            height: 150px;
-            transform: rotate(-30deg);
-            color: var(--color-accent-light);
-        }
-        .svg-bottom-right {
-            bottom: -20px;
-            right: -20px;
-            width: 180px;
-            height: 180px;
-            transform: rotate(120deg);
-            color: var(--color-accent-light);
-        }
-
         .menu-category-title {
-            border-bottom: 2px solid var(--color-accent-light);
-            padding-bottom: 0.75rem;
-            margin-bottom: 2rem;
-            color: var(--color-accent-main);
-            font-weight: 600;
-            font-size: 1.75rem;
+            border-bottom: 2px solid #e0c29f; /* Warm border color */
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: #8b5e3c; /* Darker warm color */
         }
         .menu-item {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-            background-color: var(--color-item-bg);
+            justify-content: space-between; /* Space out details and button group */
+            margin-bottom: 0.75rem;
+            background-color: #ffffff;
             border-radius: 0.75rem;
-            padding: 1rem;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            padding: 0.75rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
         }
+        /* Changed: Now flex to align text group and price horizontally, centered */
         .menu-item-details {
             flex-grow: 1;
             display: flex;
+            align-items: center; /* Vertically align text group and price */
+            justify-content: space-between; /* Space out text group and price */
+            margin-right: 1rem;
+        }
+        /* New: Group for name and description to keep them stacked */
+        .menu-item-text-group {
+            display: flex;
             flex-direction: column;
             align-items: flex-start;
-            margin-right: 1.5rem;
+            flex-grow: 1; /* Allows it to take available space */
         }
         .menu-item-name {
             font-weight: 600;
-            color: var(--color-text-dark);
-            font-size: 1.25rem;
+            color: #4a2c0f;
+            font-size: 1.125rem;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.5rem;
         }
-        .menu-item-description {
-            font-size: 0.95rem;
-            color: var(--color-text-medium);
-            margin-top: 0.35rem;
+        .menu-item-description { /* New style for descriptions */
+            font-size: 0.875rem;
+            color: #6b7280; /* Gray color for description */
+            margin-top: 0.25rem; /* Small space above description */
+        }
+        .menu-item-price {
+            font-weight: 700;
+            color: #8b5e3c;
+            font-size: 1rem;
+            white-space: nowrap;
+            /* Removed align-self: flex-end as it's now handled by parent flex */
         }
         .order-info {
-            background-color: #f7f9f7;
-            border-left: 4px solid var(--color-accent-main);
-            padding: 1.75rem;
-            border-radius: 1rem;
-            margin-bottom: 3rem;
-            line-height: 1.8;
-        }
-        .order-info strong {
-            color: var(--color-accent-main);
+            background-color: #fff7ed;
+            border-left: 4px solid #e0c29f;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 2rem;
         }
         .veg-dot {
-            width: 12px;
-            height: 12px;
-            background-color: var(--color-dot-veg);
+            width: 10px;
+            height: 10px;
+            background-color: #22c55e; /* Green */
             border-radius: 50%;
-            border: 1px solid var(--color-dot-veg);
-            flex-shrink: 0;
+            border: 1px solid #16a34a; /* Darker green border */
         }
         .non-veg-dot {
-            width: 12px;
-            height: 12px;
-            background-color: var(--color-dot-nonveg);
+            width: 10px;
+            height: 10px;
+            background-color: #ef4444; /* Red */
             border-radius: 50%;
-            border: 1px solid var(--color-dot-nonveg);
-            flex-shrink: 0;
-        }
-        .price-display {
-            font-weight: 700;
-            color: var(--color-accent-main);
-            margin-right: 1rem;
-            min-width: 60px; /* To align prices */
-            text-align: right;
+            border: 1px solid #dc2626; /* Darker red border */
         }
 
-        /* Add/Quantity Buttons */
+        /* Cart Button Styling */
         .add-btn {
-            background-color: var(--color-button-add);
+            background-color: #8b5e3c; /* Warm brown */
             color: white;
-            padding: 0.6rem 1.2rem;
-            border-radius: 0.75rem;
-            font-size: 1rem;
+            padding: 0.35rem 0.75rem; /* Smaller padding */
+            border-radius: 0.5rem; /* Rounded corners */
+            font-size: 0.875rem; /* Smaller font size */
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.2s ease-in-out, transform 0.1s ease-out;
+            transition: background-color 0.2s ease-in-out;
+            white-space: nowrap; /* Prevent text wrap */
         }
         .add-btn:hover {
-            background-color: var(--color-button-add-hover);
-            transform: translateY(-1px);
-        }
-        .add-btn:active {
-            transform: translateY(0);
+            background-color: #6a4a2c; /* Darker brown on hover */
         }
 
         .qty-controls {
             display: flex;
             align-items: center;
-            gap: 0.6rem;
-            background-color: var(--color-accent-light);
-            border-radius: 0.75rem;
-            padding: 0.3rem;
+            gap: 0.5rem;
+            background-color: #f0f0f0; /* Light background for controls */
+            border-radius: 0.5rem;
+            padding: 0.2rem;
         }
         .qty-btn {
-            background-color: var(--color-accent-main);
-            color: white;
-            width: 36px;
-            height: 36px;
-            border-radius: 0.6rem;
-            font-size: 1.2rem;
-            font-weight: 700;
-            transition: background-color 0.2s, transform 0.1s ease-out;
-        }
-        .qty-btn:hover {
-            background-color: var(--color-button-add-hover);
-            transform: translateY(-1px);
-        }
-        .qty-btn:active {
-            transform: translateY(0);
-        }
-        .item-quantity-display {
-            min-width: 30px;
-            text-align: center;
-            font-weight: 600;
-            color: var(--color-text-dark);
-            font-size: 1.1rem;
-        }
-
-        /* Floating View Order Button */
-        .view-cart-float {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background-color: var(--color-accent-main);
-            color: white;
-            padding: 1rem 1.75rem;
-            border-radius: 9999px;
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
-            font-weight: 600;
-            gap: 0.75rem;
-            cursor: pointer;
-            z-index: 1000;
-            transition: background-color 0.2s ease-in-out, transform 0.1s ease-out, box-shadow 0.2s;
-        }
-        .view-cart-float:hover {
-            background-color: var(--color-button-confirm-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-        .view-cart-float:active {
-            transform: translateY(0);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-        .view-cart-float svg {
-            width: 24px;
-            height: 24px;
-        }
-        .cart-count {
-            background-color: #EF5350;
-            min-width: 24px;
-            min-height: 24px;
+            background-color: #e0c29f;
+            color: #4a2c0f;
+            width: 28px; /* Slightly larger buttons */
+            height: 28px;
+            border-radius: 0.4rem; /* Match outer container */
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
+            font-weight: 700;
+            transition: background-color 0.2s;
+            font-size: 1rem;
+        }
+        .qty-btn:hover {
+            background-color: #d1b08b;
+        }
+        .item-quantity-display {
+            min-width: 20px; /* Ensure space for numbers */
+            text-align: center;
+            font-weight: 600;
+            color: #4a2c0f;
+            font-size: 1rem;
+        }
+
+        /* Floating Cart Icon */
+        .view-cart-float {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background-color: #4a2c0f; /* Dark brown */
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 9999px; /* Fully rounded */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            z-index: 1000;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .view-cart-float:hover {
+            background-color: #331e08;
+        }
+        .cart-count {
+            background-color: #ef4444; /* Red for count */
+            color: white;
             border-radius: 50%;
-            padding: 0.25rem 0.6rem;
-            font-size: 0.8rem;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.75rem;
             line-height: 1;
         }
 
@@ -253,15 +185,15 @@
             visibility: visible;
         }
         .modal-content {
-            background-color: var(--color-modal-bg);
-            padding: 2rem;
-            border-radius: 1.5rem;
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
             max-width: 90%;
             width: 500px;
-            max-height: 90vh;
-            overflow-y: auto;
+            max-height: 90vh; /* Limit height for scrollability */
+            overflow-y: auto; /* Enable scrolling for long carts */
             position: relative;
-            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
             transform: translateY(20px);
             opacity: 0;
             transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
@@ -272,24 +204,22 @@
         }
         .modal-close-btn {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
+            top: 0.75rem;
+            right: 0.75rem;
             background: none;
             border: none;
-            font-size: 2rem;
+            font-size: 1.5rem;
             cursor: pointer;
-            color: var(--color-text-medium);
-            transition: color 0.2s;
+            color: #8b5e3c;
         }
-        .modal-close-btn:hover {
-            color: var(--color-text-dark);
-        }
+
+        /* Cart Item in Modal */
         .cart-item-modal {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid var(--color-border-subtle);
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed #eee;
         }
         .cart-item-modal:last-child {
             border-bottom: none;
@@ -297,141 +227,88 @@
         .cart-item-info {
             flex-grow: 1;
         }
-        .cart-item-info p {
-            font-size: 1.1rem;
-            color: var(--color-text-dark);
-        }
-        .cart-item-info .text-sm {
-            font-size: 0.9rem;
-            color: var(--color-text-medium);
-        }
         .cart-item-qty-control {
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.5rem;
         }
-        .qty-btn-modal {
-            background-color: var(--color-accent-light);
-            color: var(--color-text-dark);
-            width: 32px;
-            height: 32px;
+        .qty-btn-modal { /* Renamed to differentiate from menu page buttons */
+            background-color: #e0c29f;
+            color: #4a2c0f;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             font-weight: 700;
-            font-size: 1.1rem;
             transition: background-color 0.2s;
         }
         .qty-btn-modal:hover {
-            background-color: var(--color-accent-main);
-            color: white;
+            background-color: #d1b08b;
         }
-        .modal-content input, .modal-content select {
-            border: 1px solid var(--color-border-subtle);
-            border-radius: 0.6rem;
-            padding: 0.75rem;
-            font-size: 1rem;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-        .modal-content input:focus, .modal-content select:focus {
-            border-color: var(--color-accent-main);
-            box-shadow: 0 0 0 2px rgba(74, 110, 85, 0.2);
-            outline: none;
-        }
-        /* Specific override for the confirm button background, using Tailwind's default */
-        .modal-content button.bg-\[\#22c55e\] {
-            background-color: var(--color-button-confirm);
-            padding: 1rem;
-            border-radius: 0.75rem;
+        .cart-total {
             font-size: 1.25rem;
-            transition: background-color 0.2s ease-in-out, transform 0.1s ease-out;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            font-weight: 700;
+            text-align: right;
+            margin-top: 1rem;
+            color: #4a2c0f;
         }
-        .modal-content button.bg-\[\#22c55e\]:hover {
-            background-color: var(--color-button-confirm-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-        }
-        .modal-content button.bg-\[\#22c55e\]:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-        }
-
-        /* General spacing and font adjustments */
-        .text-3xl { font-size: 2.5rem; }
-        .text-lg { font-size: 1.15rem; }
-        .text-xl { font-size: 1.35rem; }
-        .text-gray-700 { color: var(--color-text-medium); }
-        .text-gray-600 { color: #888; }
     </style>
 </head>
-<body class="p-6 sm:p-8 md:p-12">
-    <div class="max-w-4xl mx-auto container-card">
-        <!-- Decorative SVG Accents -->
-        <svg class="svg-accent svg-top-left" viewBox="0 0 200 200" fill="currentColor">
-            <path d="M100 0C44.77 0 0 44.77 0 100s44.77 100 100 100 100-44.77 100-100S155.23 0 100 0zm0 180c-44.11 0-80-35.89-80-80s35.89-80 80-80 80 35.89 80 80-35.89 80-80 80zM100 20c-44.11 0-80 35.89-80 80s35.89 80 80 80 80-35.89 80-80-35.89-80-80-80zM100 40c-33.14 0-60 26.86-60 60s26.86 60 60 60 60-26.86 60-60-26.86-60-60-60zM100 60c-22.09 0-40 17.91-40 40s17.91 40 40 40 40-17.91 40-40-17.91-40-40-40zM100 80c-11.05 0-20 8.95-20 20s8.95 20 20 20 20-8.95 20-20-8.95-20-20-20z"/>
-        </svg>
-        <svg class="svg-accent svg-bottom-right" viewBox="0 0 200 200" fill="currentColor">
-            <path d="M100 0C44.77 0 0 44.77 0 100s44.77 100 100 100 100-44.77 100-100S155.23 0 100 0zm0 180c-44.11 0-80-35.89-80-80s35.89-80 80-80 80 35.89 80 80-35.89 80-80 80zM100 20c-44.11 0-80 35.89-80 80s35.89 80 80 80 80-35.89 80-80-35.89-80-80-80zM100 40c-33.14 0-60 26.86-60 60s26.86 60 60 60 60-26.86 60-60-26.86-60-60-60zM100 60c-22.09 0-40 17.91-40 40s17.91 40 40 40 40-17.91 40-40-17.91-40-40-40zM100 80c-11.05 0-20 8.95-20 20s8.95 20 20 20 20-8.95 20-20-8.95-20-20-20z"/>
-        </svg>
+<body class="p-4 sm:p-6 md:p-8">
+    <div class="max-w-4xl mx-auto bg-white p-6 sm:p-8 md:p-10 rounded-xl shadow-lg">
+        <h1 class="text-3xl sm:text-4xl font-bold text-center mb-6 text-[#4a2c0f]">Casa Zia Guest Menu</h1>
+        <p class="text-center text-lg mb-8 text-gray-700">We're delighted to offer you a selection of delicious items to enhance your stay.</p>
 
-        <h1 class="text-4xl sm:text-5xl font-bold text-center mb-8" style="color: var(--color-text-dark);">Casa Zia Full Dining Menu</h1>
-        <p class="text-center text-xl mb-10" style="color: var(--color-text-medium);">Order fresh meals and snacks directly to your room!</p>
-
-        <!-- UPDATED ORDER INFORMATION SECTION -->
         <div class="order-info">
-            <h2 class="text-2xl font-semibold mb-4" style="color: var(--color-accent-main);">Order Information</h2>
-            <ul class="list-disc list-inside text-gray-700 space-y-2">
+            <h2 class="text-xl font-semibold mb-3 text-[#8b5e3c]">Order Information</h2>
+            <ul class="list-disc list-inside text-gray-700 space-y-1">
                 <li>All our dishes are freshly prepared, either homecooked with care or sourced from trusted local kitchens.</li>
-                <li>Please place your order at least **1 hour in advance** to allow us time for preparation.</li>
-                <li>The **last order** for the day is at **7:30 PM**.</li>
+                <li>Please place your order at least <strong class="text-[#4a2c0f]">1 hour in advance</strong> to allow us time for preparation.</li>
+                <li>The <strong class="text-[#4a2c0f]">last order for the day is at 7:00 PM</strong>.</li>
             </ul>
         </div>
-        <!-- END ORDER INFORMATION SECTION -->
 
         <div id="menu-items-container">
-            <!-- Menu categories will be dynamically injected here by JavaScript -->
-        </div>
+            </div>
 
-        <p class="text-center text-gray-600 mt-10">
-            <strong style="color: var(--color-accent-main);">Please inform us of any allergies or dietary restrictions.</strong>
+        <p class="text-center text-gray-600 mt-8">
+            <strong class="text-[#4a2c0f]">Please inform us of any allergies or dietary restrictions.</strong>
         </p>
-        <p class="text-center text-gray-600 mt-3">Enjoy your meal!</p>
-        <p class="text-center text-gray-600 mt-5 text-sm">
-            For any queries, please contact Luke - 9443244055.
+        <p class="text-center text-gray-600 mt-2">Enjoy your meal!</p>
+        <p class="text-center text-gray-600 mt-4 text-sm">
+            For additional help with orders, please call Luke - 9443244055.
         </p>
     </div>
 
-    <!-- Floating View Order Button -->
     <div class="view-cart-float" onclick="openCartModal()">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
             <path d="M2.25 2.25a.75.75 0 0 0 0 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.75 3.75 0 0 0 3.694 2.46l5.58 2.02c1.102.401 2.25.136 3.003-.806l.763-.923a1.5 1.5 0 0 1 2.143-.377l.573.343a1.5 1.5 0 0 0 1.946-.848l.943-3.481a1.5 1.5 0 0 0-.848-1.946l-.573-.343a1.5 1.5 0 0 1-.377-2.143l.923-.763c.942-.753 1.207-1.899.806-3.002L16.278 2.64a.75.75 0 0 0-.278-.362H7.942a3.75 3.75 0 0 0-3.694-2.46L2.25 2.25zM12 12.75a.75.75 0 0 1-.75-.75V7.5a.75.75 0 0 1 1.5 0v4.5c0 .414-.336.75-.75.75z" />
         </svg>
-        View Order
+        View Cart
         <span id="cart-item-count" class="cart-count">0</span>
     </div>
 
-    <!-- Cart Modal -->
     <div id="cart-modal-overlay" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-btn" onclick="closeCartModal()">&times;</button>
-            <h2 class="text-2xl font-bold mb-6" style="color: var(--color-text-dark);">Your Order Details</h2>
-            <div id="cart-items-list" class="mb-6">
+            <h2 class="text-2xl font-bold mb-4 text-[#4a2c0f]">Your Order</h2>
+            <div id="cart-items-list" class="mb-4">
+                </div>
+            <div class="cart-total mb-4">
+                Total: Rs. <span id="cart-total-price">0</span>
             </div>
 
-            <div class="space-y-4 mb-8">
-                <p class="text-xl font-bold text-right" style="color: var(--color-accent-main);">
-                    Total: <span id="cart-total-price">Rs. 0</span>
-                </p>
+            <div class="space-y-3 mb-6">
                 <div>
-                    <label for="guest-name" class="block text-sm font-medium text-gray-700 mb-1">Guest Name:</label>
-                    <input type="text" id="guest-name" class="block w-full border rounded-md shadow-sm" placeholder="Your Name" required>
+                    <label for="guest-name" class="block text-sm font-medium text-gray-700">Guest Name:</label>
+                    <input type="text" id="guest-name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-[#e0c29f] focus:border-[#e0c29f]" placeholder="Your Name" required>
                 </div>
                 <div>
-                    <label for="room-number" class="block text-sm font-medium text-gray-700 mb-1">Room Number:</label>
-                    <select id="room-number" class="block w-full border rounded-md shadow-sm" required>
+                    <label for="room-number" class="block text-sm font-medium text-gray-700">Room Number:</label>
+                    <select id="room-number" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-[#e0c29f] focus:border-[#e0c29f]" required>
                         <option value="" disabled selected>Select your Room Number</option>
                         <option value="101">101</option>
                         <option value="102">102</option>
@@ -440,190 +317,214 @@
                         <option value="Stargazing Suite">Stargazing Suite</option>
                     </select>
                 </div>
-                <div>
-                    <label for="serving-time" class="block text-sm font-medium text-gray-700 mb-1">Preferred Serving Time:</label>
-                    <select id="serving-time" class="block w-full border rounded-md shadow-sm" required>
-                        <option value="" disabled selected>Select Time Slot</option>
-                        <option value="9:00 AM - 10:00 AM">9:00 AM - 10:00 AM (Breakfast)</option>
-                        <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM (Breakfast)</option>
-                        <option value="12:00 PM - 1:00 PM">12:00 PM - 1:00 PM (Lunch)</option>
-                        <option value="1:00 PM - 2:00 PM">1:00 PM - 2:00 PM (Lunch)</option>
-                        <option value="6:00 PM - 7:00 PM">6:00 PM - 7:00 PM (Dinner)</option>
-                        <option value="7:00 PM - 7:30 PM">7:00 PM - 7:30 PM (Dinner - Last Order)</option>
-                    </select>
-                </div>
-                <div id="message-box" class="p-3 rounded-md hidden text-center font-medium"></div>
             </div>
 
-            <button onclick="placeOrder()" class="w-full text-white py-4 rounded-md font-bold text-xl shadow-md bg-[#22c55e]">
-                Confirm Order on WhatsApp
+            <button onclick="placeOrder()" class="w-full bg-[#22c55e] text-white py-3 rounded-md font-bold text-lg hover:bg-[#16a34a] transition-colors shadow-md">
+                Place Order on WhatsApp
             </button>
         </div>
     </div>
 
     <script>
-        const WHATSAPP_NUMBER = '919003043336';
-        let cart = [];
-        let allMenuItems = {};
+        const WHATSAPP_NUMBER = '919003043336'; // Luke's WhatsApp number
 
-        // --- UPDATED MENU DATA WITH ALL REQUESTED CHANGES ---
-        const fullMenuData = {
-            breakfast_dinner: {
-  title: "Breakfast & Dinner (8:30 AM to 7:30 PM)",
+        let cart = []; // Stores items in the cart: [{id, name, price, type, quantity}]
+        let allMenuItems = {}; // To easily look up item details by ID
+
+        const menuData = [
+            {
+                category: "Soups",
+                items: [
+                    { id: 'soup_chicken', name: "Sweet Corn Chicken Soup", price: 160, type: "non-veg" },
+                    { id: 'soup_veg', name: "Sweet Corn Veg Soup", price: 140, type: "veg" }
+                ]
+            },
+            {
+                category: "Starters & Light Bites",
+                items: [
+                    { id: 'starter_chicken65', name: "Chicken 65", price: 250, type: "non-veg" },
+                    { id: 'starter_chicken_manchurian', name: "Chicken Manchurian", price: 250, type: "non-veg" },
+                    { id: 'starter_gobi_manchurian', name: "Gobi Manchurian", price: 200, type: "veg" },
+                    { id: 'starter_medhu_vadai', name: "Medhu Vadai", price: 20, type: "veg" },
+                    { id: 'starter_boiled_egg', name: "Boiled Egg", price: 15, type: "non-veg" },
+                    { id: 'starter_sunny_side_up', name: "Sunny Side Up", price: 30, type: "non-veg" },
+                    { id: 'starter_egg_bhurji', name: "Egg Bhurji", price: 80, type: "non-veg" }
+                ]
+            },
+            {
+                category: "Omelettes",
+                items: [
+                    { id: 'omelette_cheese', name: "Cheese Omelette", price: 130, type: "non-veg" },
+                    { id: 'omelette_onion', name: "Onion Omelette", price: 60, type: "non-veg" }
+                ]
+            },
+            {
+                category: "Sandwiches",
+                items: [
+                    { id: 'sandwich_veg', name: "Veg Sandwich", price: 140, type: "veg" },
+                    { id: 'sandwich_egg', name: "Egg Sandwich", price: 150, type: "non-veg" },
+                    { id: 'sandwich_chicken', name: "Chicken Sandwich", price: 230, type: "non-veg" },
+                    { id: 'sandwich_corn_cheese', name: "Corn and Cheese Sandwich", price: 130, type: "veg" },
+                    { id: 'sandwich_chilly_cheese', name: "Chilly Cheese Sandwich", price: 100, type: "veg" }
+                ]
+            },
+            {
+                category: "Maggi",
+                items: [
+                    { id: 'maggi_plain', name: "Plain Maggi", price: 60, type: "veg" },
+                    { id: 'maggi_egg', name: "Egg Maggi", price: 70, type: "non-veg" },
+                    { id: 'maggi_cheese', name: "Cheese Maggi", price: 80, type: "veg" }
+                ]
+            },
+            {
+                category: "Salads",
+                items: [
+                    { id: 'salad_veg', name: "Veg Salad", price: 200, type: "veg" },
+                                   ]
+            },
+            {
+                category: "Main Courses & Indian Delights",
+                subcategories: [
+                    {
+                        name: "Rice Varieties",
+                        items: [
+                            { id: 'rice_chicken_biryani', name: "Chicken Biryani", price: 250, type: "non-veg" },
+                            { id: 'rice_white', name: "White Rice", price: 80, type: "veg" },
+                            { id: 'rice_curd', name: "Curd Rice", price: 130, type: "veg" },
+                            { id: 'rice_veg_fried', name: "Veg Fried Rice", price: 160, type: "veg" },
+                            { id: 'rice_chicken_fried', name: "Chicken Fried Rice", price: 200, type: "non-veg" },
+                            { id: 'rice_dal_khichdi', name: "Dal Khichdi", price: 220, type: "veg" },
+                            { id: 'rice_khichdi', name: "Khichdi", price: 60, type: "veg" },
+                            { id: 'rice_south_indian_veg_meals', name: "South Indian Veg Meals", price: 140, type: "veg" }
+                        ]
+                    },
+                    {
+                        name: "Dinner & Accompaniments",
+                        items: [
+                            { id: 'bread_idli', name: "Idli (2 Pcs)", price: 40, type: "veg" },
+                            { id: 'bread_poori', name: "Poori (2 Pcs)", price: 60, type: "veg" },
+                            { id: 'bread_chappati', name: "Chappati (2 Pcs)", price: 60, type: "veg" },
+                            { id: 'bread_kal_dosa', name: "Kal Dosa", price: 20, type: "veg" },
+                            { id: 'bread_egg_dosa', name: "Egg Dosa", price: 70, type: "non-veg" },
+                            { id: 'bread_upma', name: "Upma", price: 60, type: "veg" }
+                        ]
+                    },
+                    {
+                        name: "Curries & Gravies",
+                        items: [
+                            { id: 'curry_butter_chicken_masala', name: "Butter Chicken Masala", price: 250, type: "non-veg" },
+                            { id: 'curry_chicken', name: "Chicken Curry", price: 250, type: "non-veg" },
+                            { id: 'curry_chicken_pepper_fry', name: "Chicken Pepper Fry", price: 250, type: "non-veg" },
+                            { id: 'curry_paneer_butter_masala', name: "Paneer Butter Masala", price: 250, type: "veg" },
+                            { id: 'curry_veg', name: "Veg Curry", price: 200, type: "veg" },
+                            { id: "curry_dal_non_spicy", name: "Dal Curry (Non-Spicy)", price: 180, type: "veg" },
+                            { id: "curry_rasam", name: "Rasam", price: 60, type: "veg" }
+                        ]
+                    },
+                    {
+                        name: "Noodles",
+                        items: [
+                            { id: 'noodles_egg', name: "Egg Noodles", price: 100, type: "non-veg" },
+                            { id: 'noodles_veg', name: "Veg Noodles", price: 100, type: "veg" }
+                        ]
+                    }
+                ]
+            },
+            {
+                category: beverages_snacks: {
+  title: "Beverages & Snacks",
   items: [
-    { id: "poori2", name: "Poori (2 Pcs)", price: 60, description: "", type: "veg" },
-    { id: "chapati2", name: "Chappati (2 Pcs)", price: 60, description: "", type: "veg" },
-    { id: "upma", name: "Upma", price: 60, description: "", type: "veg" },
-    { id: "khichdi", name: "Khichdi", price: 60, description: "", type: "veg" }
+    { id: "hottea", name: "Hot Tea", price: 30, description: "", type: "veg" },
+    { id: "coffee", name: "Coffee", price: 40, description: "", type: "veg" },
+    { id: "milk", name: "Milk 1 Serving", price: 30, description: "", type: "veg" },
+    { id: "coldcoffee", name: "Cold Coffee", price: 120, description: "", type: "veg" },
+    { id: "thumbsup", name: "Thumbs Up 200ml", price: 30, description: "", type: "veg" },
+    { id: "americanobasil", name: "Americano Basil Fruit Drink", price: 150, description: "", type: "veg" },
+    { id: "natadecoco", name: "Nata de Coco Fruit Drink", price: 100, description: "", type: "veg" },
+    { id: "monster", name: "Monster Energy Drink", price: 200, description: "", type: "veg" },
+    { id: "tropicanaltr", name: "Tropicana 1 Ltr Fruit Juice", price: 180, description: "", type: "veg" },
+    { id: "freshlime", name: "Fresh Lime Soda", price: 80, description: "", type: "veg" },
+    { id: "lays", name: "Lays", price: 50, description: "", type: "veg" },
+    { id: "oreo", name: "Oreo", price: 50, description: "", type: "veg" },
+    { id: "hideseek", name: "Hide Seek", price: 50, description: "", type: "veg" },
+    { id: "creamwafer", name: "Cream Wafer", price: 100, description: "", type: "veg" }
   ]
 },
 
-            'soups': {
-                title: '🍲 Soups', // NEW SECTION ADDED
-                items: [
-                    { id: 'sweet_corn_chicken_soup', name: "Sweet Corn Chicken Soup", price: 160, description: "", type: "non-veg" },
-                    { id: 'sweet_corn_veg_soup', name: "Sweet Corn Veg Soup", price: 140, description: "", type: "veg" },
-                ]
-            },
-            'eggs_sandwiches': {
-                title: '🥚 Eggs, Omelettes & Sandwiches',
-                items: [
-                    { id: 'boiled_egg', name: "Boiled Egg ", price: 15, description: "", type: "non-veg" },
-                    { id: 'sunny_side', name: "Sunny Side Up ", price: 30, description: "", type: "non-veg" },
-                    { id: 'egg_bhurji', name: "Egg Bhurji", price: 80, description: "", type: "non-veg" },
-                    { id: 'masala_omlette', name: "Masala Omlette", price: 80, description: "", type: "non-veg" }, 
-                    { id: 'onion_omlette', name: "Onion Omelette ", price: 60, description: "", type: "non-veg" },
-                    { id: 'cheese_omlette', name: "Cheese Omelette ", price: 130, description: "", type: "veg" },
-                    { id: 'plain_maggi', name: "Plain Maggi", price: 60, description: "", type: "veg" },
-                    { id: 'egg_maggi', name: "Egg Maggi", price: 80, description: "", type: "non-veg" }, 
-                    { id: 'cheese_maggi', name: "Cheese Maggi", price: 80, description: "", type: "veg" },
-                    { id: 'french_fries', name: "French Fries", price: 100, description: "", type: "veg" }, 
-                    { id: 'veg_sandwich', name: "Veg Sandwich", price: 140, description: "", type: "veg" },
-                    { id: 'chicken_sandwich_fries', name: "Chicken Sandwich & Fries", price: 250, description: "", type: "non-veg" }, 
-                    { id: 'chilli_cheese_sandwich', name: "Chilli Cheese Sandwich", price: 140, description: "", type: "veg" }, 
-                    { id: 'corn_cheese_sandwich', name: "Corn and Cheese Sandwich", price: 130, description: "", type: "veg" },
-                ]
-            },
-            'main_course': {
-                title: '🍛 Main Course: Curries & Accompaniments',
-                items: [
-                    { id: 'butter_chicken', name: "Butter Chicken Masala", price: 250, description: "", type: "non-veg" },
-                    { id: 'kadai_chicken', name: "Kadai Chicken", price: 250, description: "", type: "non-veg" }, 
-                    { id: 'chicken_curry', name: "Chicken Curry (Home Style)", price: 250, description: "", type: "non-veg" },
-                    { id: 'pepper_chicken', name: "Pepper Chicken (Dry/Gravy)", price: 250, description: "", type: "non-veg" }, 
-                    { id: 'egg_curry', name: "Egg Curry", price: 180, description: "", type: "non-veg" }, 
-                    { id: 'paneer_butter', name: "Paneer Butter Masala", price: 250, description: "", type: "veg" },
-                    { id: 'veg_curry', name: "Veg Curry (Mixed)", price: 200, description: "", type: "veg" },
-                    { id: 'dal_curry', name: "Dal Curry (Non-Spicy)", price: 180, description: "", type: "veg" },
-                    { id: 'rasam', name: "Rasam (Available during lunch hours only)", price: 60, description: "", type: "veg" },
-                ]
-            },
-            'rice_meals': {
-                title: '🍚 Rice, Khichdi & Noodles',
-                items: [
-                    { id: 'chicken_biryani', name: "Chicken Biryani", price: 250, description: "", type: "non-veg" },
-                    { id: 'non_veg_meals', name: "Non-Veg Meals (Lunch Only)", price: 250, description: "", type: "non-veg" }, 
-                    // NEW ITEM
-                    { id: 'dal_khichdi', name: "Dal Khichdi", price: 220, description: "", type: "veg" }, 
-                    { id: 'kuska_rice', name: "Kuska Rice (Non-Veg)", price: 160, description: "", type: "non-veg" }, 
-                    { id: 'white_rice', name: "White Rice (Plain)", price: 60, description: "", type: "veg" }, 
-                    { id: 'curd_rice', name: "Curd Rice", price: 80, description: "", type: "veg" }, 
-                    { id: 'veg_fried_rice', name: "Veg Fried Rice", price: 160, description: "", type: "veg" },
-                    { id: 'paneer_fried_rice', name: "Panneer Fried Rice", price: 200, description: "", type: "veg" }, 
-                    { id: 'chicken_fried_rice', name: "Chicken Fried Rice", price: 200, description: "", type: "non-veg" },
-                    { id: 'egg_fried_rice', name: "Egg Fried Rice", price: 180, description: "", type: "non-veg" }, 
-                    { id: 'egg_noodles', name: "Egg Noodles", price: 100, description: "", type: "non-veg" },
-                    { id: 'veg_noodles', name: "Veg Noodles", price: 100, description: "", type: "veg" },
-                ]
-            },
-          
-            'beverages_snacks': {
-                title: '🥤 Beverages & Snacks',
-                items: [
-                    { id: 'hot_tea', name: "Hot Tea", price: 30, description: "", type: "veg" },
-                    { id: 'coffee', name: "Coffee", price: 40, description: "", type: "veg" },
-                    { id: 'milk', name: "Milk (1 Serving)", price: 30, description: "", type: "veg" }, 
-                    { id: 'cold_coffee', name: "Cold Coffee", price: 120, description: "", type: "veg" },
-                    { id: 'thumbs_up', name: "Thumbs Up (200ml)", price: 30, description: "", type: "veg" }, 
-                    { id: 'americano_basil', name: "Americano Basil Fruit Drink", price: 150, description: "", type: "veg" }, 
-                    { id: 'nata_de_coco', name: "Nata de Coco Fruit Drink", price: 100, description: "", type: "veg" }, 
-                    { id: 'monster', name: "Monster Energy Drink", price: 200, description: "", type: "veg" }, 
-                    { id: 'tropicana_ltr', name: "Tropicana 1 Ltr Fruit Juice", price: 180, description: "", type: "veg" }, 
-                    { id: 'fresh_lime', name: "Fresh Lime Soda", price: 80, description: "", type: "veg" },
-                    { id: 'lays', name: "Lays", price: 50, description: "", type: "veg" }, 
-                    { id: 'oreo', name: "Oreo", price: 50, description: "", type: "veg" }, 
-                    { id: 'hide_seek', name: "Hide & Seek", price: 50, description: "", type: "veg" }, 
-                    { id: 'cream_wafer', name: "Cream Wafer", price: 100, description: "", type: "veg" }, 
-                ]
-            },
-            'desserts': {
-                title: '🍦 Desserts',
-                items: [
-                    // Gulab Jamun removed, resulting in an empty section
-                ]
-            }
-        };
+        ];
 
-        // --- CORE APPLICATION LOGIC ---
-
-        function flattenMenuData() {
-            // Clears and repopulates the lookup table based on current menu data
-            allMenuItems = {};
-            Object.values(fullMenuData).forEach(category => {
-                category.items.forEach(item => {
-                    allMenuItems[item.id] = item;
-                });
-            });
-        }
-        
-        // Function to render the menu dynamically from the new structure
+        // Function to render the menu
         function renderMenu() {
             const menuContainer = document.getElementById('menu-items-container');
-            menuContainer.innerHTML = ''; // Clear previous content
-            flattenMenuData(); // Ensure allMenuItems is up-to-date
+            menuContainer.innerHTML = ''; // Clear existing menu
 
-            Object.values(fullMenuData).forEach(category => {
-                if (category.items.length === 0) return; // Skip empty categories
-
-                // Category Title Section
+            menuData.forEach(categoryData => {
                 const categoryDiv = document.createElement('div');
-                categoryDiv.className = 'mb-10';
-                categoryDiv.innerHTML = `
-                    <h2 class="text-2xl sm:text-3xl font-bold menu-category-title">${category.title}</h2>
-                `;
-                menuContainer.appendChild(categoryDiv);
+                categoryDiv.className = 'mb-8';
 
-                // Category Items
-                category.items.forEach(item => {
+                const categoryTitle = document.createElement('h2');
+                categoryTitle.className = 'text-2xl sm:text-3xl font-bold mb-4 menu-category-title';
+                categoryTitle.textContent = categoryData.category;
+                categoryDiv.appendChild(categoryTitle);
+
+                // Helper function to render individual items
+                const renderItem = (item) => {
+                    // Store item in allMenuItems for easy lookup by ID
+                    allMenuItems[item.id] = item;
+
                     const itemDiv = document.createElement('div');
                     itemDiv.className = 'menu-item';
 
+                    // Check if item is already in cart to determine initial display
                     const itemInCart = cart.find(cartItem => cartItem.id === item.id);
                     const initialQuantity = itemInCart ? itemInCart.quantity : 0;
                     const showAddButton = initialQuantity === 0;
                     const showQtyControls = !showAddButton;
 
-                    // Note: Descriptions are now empty strings but kept in the object for consistency
-                    // and the render logic handles the empty string by not rendering the description tag.
                     itemDiv.innerHTML = `
-                        <div class="flex items-center space-x-4 flex-grow">
-                            <div class="${item.type}-dot flex-shrink-0"></div>
-                            <div class="menu-item-details">
-                                <p class="menu-item-name">${item.name}</p>
+                        <div class="menu-item-details">
+                            <div class="menu-item-text-group">
+                                <p class="menu-item-name">
+                                    <span class="${item.type}-dot"></span>
+                                    ${item.name}
+                                </p>
                                 ${item.description ? `<p class="menu-item-description">${item.description}</p>` : ''}
                             </div>
+                            <p class="menu-item-price">Rs. ${item.price}</p>
                         </div>
-                        <span class="price-display">Rs. ${item.price}</span>
-                        
-                        <button id="add-btn-${item.id}" class="add-btn flex-shrink-0 ${showAddButton ? '' : 'hidden'}" data-item-id="${item.id}">Add</button>
-                        <div id="qty-controls-${item.id}" class="qty-controls flex-shrink-0 ${showQtyControls ? '' : 'hidden'}">
+                        <button id="add-btn-${item.id}" class="add-btn ${showAddButton ? '' : 'hidden'}" data-item-id="${item.id}">Add</button>
+                        <div id="qty-controls-${item.id}" class="qty-controls ${showQtyControls ? '' : 'hidden'}">
                             <button class="qty-btn" onclick="updateQuantityOnMenu('${item.id}', -1)">-</button>
                             <span id="item-quantity-display-${item.id}" class="item-quantity-display">${initialQuantity}</span>
                             <button class="qty-btn" onclick="updateQuantityOnMenu('${item.id}', 1)">+</button>
                         </div>
                     `;
                     categoryDiv.appendChild(itemDiv);
-                });
+                };
+
+                // Handle direct items under the category
+                if (categoryData.items && categoryData.items.length > 0) {
+                    categoryData.items.forEach(renderItem);
+                }
+
+                // Handle subcategories within the category
+                if (categoryData.subcategories && categoryData.subcategories.length > 0) {
+                    categoryData.subcategories.forEach(subCategoryData => {
+                        // Only add subcategory title if it has items
+                        if (subCategoryData.items && subCategoryData.items.length > 0) {
+                            const subCategoryTitle = document.createElement('h3');
+                            subCategoryTitle.className = 'text-xl font-semibold mb-3 text-[#4a2c0f] mt-6';
+                            subCategoryTitle.textContent = subCategoryData.name;
+                            categoryDiv.appendChild(subCategoryTitle);
+
+                            subCategoryData.items.forEach(renderItem);
+                        }
+                    });
+                }
+                // Only append the category div if it actually contains items or subcategories with items
+                if (categoryDiv.children.length > 1 || (categoryDiv.children.length === 1 && categoryDiv.querySelector('.menu-item'))) {
+                    menuContainer.appendChild(categoryDiv);
+                }
             });
 
             // Add event listeners for the initial "Add" buttons
@@ -637,206 +538,173 @@
 
         // --- Cart Logic ---
 
-        function calculateTotal() {
-            return cart.reduce((total, item) => total + (allMenuItems[item.id].price * item.quantity), 0);
+        // Handles initial add to cart from main menu when "Add" button is clicked
+        function handleInitialAddToCart(itemId) {
+            const itemDetails = allMenuItems[itemId];
+            cart.push({ ...itemDetails, quantity: 1 });
+            updateCartDisplay();
+            updateMenuItemQuantityDisplay(itemId); // Show controls, hide "Add"
+            showTemporaryMessage('Item added to cart!', 'green');
+        }
+
+        // Updates quantity from both main menu and modal
+        function updateQuantity(itemId, change) {
+            const itemIndex = cart.findIndex(item => item.id === itemId);
+            if (itemIndex > -1) {
+                cart[itemIndex].quantity += change;
+                if (cart[itemIndex].quantity <= 0) {
+                    cart.splice(itemIndex, 1); // Remove item if quantity is 0 or less
+                }
+            } else if (change > 0) { // If trying to add an item that's not in cart (e.g., via + button not "Add")
+                const itemDetails = allMenuItems[itemId];
+                cart.push({ ...itemDetails, quantity: 1 });
+            }
+            updateCartDisplay();
+            renderCart(); // Always re-render modal cart
+            updateMenuItemQuantityDisplay(itemId); // Update main menu display
+        }
+
+        // Updates quantity display for an item on the main menu
+        function updateMenuItemQuantityDisplay(itemId) {
+            const itemInCart = cart.find(cartItem => cartItem.id === itemId);
+            const addBtn = document.getElementById(`add-btn-${itemId}`);
+            const qtyControls = document.getElementById(`qty-controls-${itemId}`);
+            const qtyDisplay = document.getElementById(`item-quantity-display-${itemId}`);
+
+            if (itemInCart && itemInCart.quantity > 0) {
+                if (addBtn) addBtn.classList.add('hidden');
+                if (qtyControls) qtyControls.classList.remove('hidden');
+                if (qtyDisplay) qtyDisplay.textContent = itemInCart.quantity;
+            } else {
+                if (addBtn) addBtn.classList.remove('hidden');
+                if (qtyControls) qtyControls.classList.add('hidden');
+            }
+        }
+
+        // Wrapper function for main menu +/- buttons
+        function updateQuantityOnMenu(itemId, change) {
+            updateQuantity(itemId, change);
+        }
+
+        function calculateCartTotal() {
+            return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
         }
 
         function updateCartDisplay() {
-            const total = calculateTotal();
-            document.getElementById('cart-total-price').textContent = `Rs. ${total}`;
-            document.getElementById('cart-item-count').textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartItemCount = document.getElementById('cart-item-count');
+            const totalItemsInCart = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartItemCount.textContent = totalItemsInCart;
+            cartItemCount.style.display = totalItemsInCart > 0 ? 'inline-flex' : 'none';
+        }
 
-            const cartList = document.getElementById('cart-items-list');
-            cartList.innerHTML = '';
+        function renderCart() {
+            const cartItemsList = document.getElementById('cart-items-list');
+            cartItemsList.innerHTML = ''; // Clear previous cart items
 
             if (cart.length === 0) {
-                cartList.innerHTML = '<p class="text-center text-gray-500 italic py-4">Your order is currently empty.</p>';
+                cartItemsList.innerHTML = '<p class="text-gray-500 text-center py-4">Your cart is empty.</p>';
             } else {
                 cart.forEach(item => {
-                    const menuItem = allMenuItems[item.id];
-                    const itemTotal = menuItem.price * item.quantity;
-
                     const cartItemDiv = document.createElement('div');
                     cartItemDiv.className = 'cart-item-modal';
                     cartItemDiv.innerHTML = `
                         <div class="cart-item-info">
-                            <p class="font-semibold">${menuItem.name}</p>
-                            <span class="text-sm text-gray-500">Rs. ${menuItem.price} x ${item.quantity} = Rs. ${itemTotal}</span>
+                            <p class="font-semibold">${item.name}</p>
+                            <p class="text-sm text-gray-600">Rs. ${item.price} x ${item.quantity}</p>
                         </div>
                         <div class="cart-item-qty-control">
-                            <button class="qty-btn-modal" onclick="updateQuantityInModal('${item.id}', -1)">-</button>
-                            <span class="item-quantity-display">${item.quantity}</span>
-                            <button class="qty-btn-modal" onclick="updateQuantityInModal('${item.id}', 1)">+</button>
+                            <button class="qty-btn-modal" onclick="updateQuantity('${item.id}', -1)">-</button>
+                            <span class="font-bold">${item.quantity}</span>
+                            <button class="qty-btn-modal" onclick="updateQuantity('${item.id}', 1)">+</button>
                         </div>
                     `;
-                    cartList.appendChild(cartItemDiv);
+                    cartItemsList.appendChild(cartItemDiv);
                 });
             }
+            document.getElementById('cart-total-price').textContent = calculateCartTotal();
         }
-
-        function handleInitialAddToCart(itemId) {
-            updateCart(itemId, 1);
-            
-            // Toggle visibility on the menu directly
-            const addBtn = document.getElementById(`add-btn-${itemId}`);
-            const qtyControls = document.getElementById(`qty-controls-${itemId}`);
-            const qtyDisplay = document.getElementById(`item-quantity-display-${itemId}`);
-
-            if (addBtn && qtyControls && qtyDisplay) {
-                addBtn.classList.add('hidden');
-                qtyControls.classList.remove('hidden');
-                qtyDisplay.textContent = 1;
-            }
-        }
-
-        function updateQuantityOnMenu(itemId, delta) {
-            updateCart(itemId, delta);
-
-            const itemInCart = cart.find(item => item.id === itemId);
-            const newQuantity = itemInCart ? itemInCart.quantity : 0;
-            
-            // Update the menu quantity controls
-            const addBtn = document.getElementById(`add-btn-${itemId}`);
-            const qtyControls = document.getElementById(`qty-controls-${itemId}`);
-            const qtyDisplay = document.getElementById(`item-quantity-display-${itemId}`);
-
-            if (qtyDisplay) {
-                qtyDisplay.textContent = newQuantity;
-            }
-
-            // Hide/Show Add button based on quantity
-            if (newQuantity === 0) {
-                if (addBtn) addBtn.classList.remove('hidden');
-                if (qtyControls) qtyControls.classList.add('hidden');
-            } else {
-                if (addBtn) addBtn.classList.add('hidden');
-                if (qtyControls) qtyControls.classList.remove('hidden');
-            }
-        }
-
-        function updateQuantityInModal(itemId, delta) {
-            updateCart(itemId, delta);
-            updateCartDisplay();
-            // Also refresh the main menu controls
-            updateQuantityOnMenu(itemId, 0); // Pass 0 to just refresh display without changing quantity
-        }
-
-        function updateCart(itemId, delta) {
-            const existingItem = cart.find(item => item.id === itemId);
-
-            if (existingItem) {
-                existingItem.quantity += delta;
-                if (existingItem.quantity <= 0) {
-                    cart = cart.filter(item => item.id !== itemId);
-                }
-            } else if (delta > 0) {
-                cart.push({ id: itemId, quantity: delta });
-            }
-            // Sort cart by item name for cleaner display
-            cart.sort((a, b) => allMenuItems[a.id].name.localeCompare(allMenuItems[b.id].name));
-            updateCartDisplay();
-        }
-
-
-        // --- Modal Control ---
 
         function openCartModal() {
-            updateCartDisplay();
             document.getElementById('cart-modal-overlay').classList.add('show');
+            renderCart(); // Render cart items when modal opens
         }
 
         function closeCartModal() {
             document.getElementById('cart-modal-overlay').classList.remove('show');
-            // Clear message box on close
-            const messageBox = document.getElementById('message-box');
-            messageBox.classList.add('hidden');
-            messageBox.textContent = '';
         }
-
-        // --- Order Submission ---
 
         function placeOrder() {
             const guestName = document.getElementById('guest-name').value.trim();
-            const roomNumber = document.getElementById('room-number').value;
-            const servingTime = document.getElementById('serving-time').value;
-            const messageBox = document.getElementById('message-box');
-
-            messageBox.classList.add('hidden');
-            messageBox.textContent = '';
+            const roomNumber = document.getElementById('room-number').value.trim(); // .value works for select too
 
             if (cart.length === 0) {
-                showMessage("Your cart is empty. Please add items to order.", 'bg-red-100 text-red-700');
+                showTemporaryMessage('Your cart is empty. Please add items before ordering.', 'red');
+                return;
+            }
+            if (!guestName) {
+                showTemporaryMessage('Please enter your Guest Name.', 'red');
+                document.getElementById('guest-name').focus();
+                return;
+            }
+            if (!roomNumber || roomNumber === 'Select your Room Number') { // Check for default option value
+                showTemporaryMessage('Please select your Room Number.', 'red');
+                document.getElementById('room-number').focus();
                 return;
             }
 
-            if (!guestName || !roomNumber || !servingTime) {
-                showMessage("Please fill in your Name, Room Number, and Preferred Serving Time to proceed.", 'bg-red-100 text-red-700');
-                return;
-            }
+            let orderMessage = `*New Order from Casa Zia!*%0A%0A`;
+            orderMessage += `*Guest:* ${encodeURIComponent(guestName)}%0A`;
+            orderMessage += `*Room:* ${encodeURIComponent(roomNumber)}%0A%0A`;
+            orderMessage += `*Order Details:*%0A`;
 
-            const orderDetails = cart.map(item => {
-                const menuItem = allMenuItems[item.id];
-                return `${item.quantity}x ${menuItem.name} (Rs. ${menuItem.price})`;
-            }).join('\n');
+            cart.forEach(item => {
+                orderMessage += `${encodeURIComponent(item.name)} x ${item.quantity} - Rs. ${item.price * item.quantity}${item.description ? ` (${item.description})` : ''}%0A`;
+            });
 
-            const total = calculateTotal();
-            
-            const message = 
-`*New Food Order Request*
----
-*Guest:* ${guestName}
-*Room:* ${roomNumber}
-*Time:* ${servingTime}
----
-*Order Details:*
-${orderDetails}
----
-*TOTAL:* Rs. ${total}
----
-*Note: This order is placed at least 1 hour in advance and before 7:30 PM.*`;
+            orderMessage += `%0A*Total: Rs. ${calculateCartTotal()}*%0A%0A`;
+            orderMessage += `_Please prepare this order within 1 hour._`;
 
-            // Use the clipboard API if available, otherwise fallback (though clipboard API is usually restricted in iframes)
-            try {
-                // Since navigator.clipboard is often restricted in sandboxed environments, we rely on the link opening
-                // document.execCommand('copy') is also unreliable and deprecated, so we focus on the WhatsApp link.
-            } catch (err) {
-                console.error('Could not copy text to clipboard:', err);
-            }
-
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
-
+            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${orderMessage}`;
             window.open(whatsappUrl, '_blank');
-            
-            showMessage("Order summary generated! Please confirm and send the message on WhatsApp.", 'bg-green-100 text-green-700');
-            // Optionally, clear the cart and close modal after a short delay
-            // setTimeout(() => {
-            //     cart = [];
-            //     updateCartDisplay();
-            //     renderMenu();
-            //     closeCartModal();
-            // }, 3000);
-        }
 
-        function showMessage(text, className) {
-            const messageBox = document.getElementById('message-box');
-            messageBox.className = `p-3 rounded-xl block font-medium mt-4 ${className}`;
-            messageBox.textContent = text;
-        }
-
-
-        // Initial setup on window load
-        window.onload = function() {
+            // Clear cart and inputs after order is placed
+            cart = [];
+            document.getElementById('guest-name').value = '';
+            document.getElementById('room-number').value = ''; // Reset select to default option
+            updateCartDisplay();
+            closeCartModal();
+            // Re-render the menu to reset all quantity controls to 'Add'
             renderMenu();
-        };
+            showTemporaryMessage('Order sent to Luke via WhatsApp!', 'green');
+        }
 
-        // Enable closing modal on ESC key
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape') {
-                closeCartModal();
+        // --- Temporary Message Display ---
+        function showTemporaryMessage(message, type) {
+            let msgBox = document.getElementById('temp-message-box');
+            if (!msgBox) {
+                msgBox = document.createElement('div');
+                msgBox.id = 'temp-message-box';
+                msgBox.className = 'fixed bottom-20 left-1/2 -translate-x-1/2 p-3 rounded-lg shadow-lg text-white font-semibold z-[3000] opacity-0 transition-opacity duration-300';
+                document.body.appendChild(msgBox);
             }
+
+            msgBox.textContent = message;
+            msgBox.style.backgroundColor = type === 'green' ? '#22c55e' : '#ef4444';
+            msgBox.classList.remove('opacity-0');
+            msgBox.classList.add('opacity-100');
+
+            setTimeout(() => {
+                msgBox.classList.remove('opacity-100');
+                msgBox.classList.add('opacity-0');
+            }, 3000); // Message disappears after 3 seconds
+        }
+
+
+        // Initialize menu and cart display on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMenu();
+            updateCartDisplay(); // Initialize cart count
         });
     </script>
 </body>
 </html>
-
