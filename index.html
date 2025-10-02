@@ -468,27 +468,25 @@
 
         // --- UPDATED MENU DATA WITH ALL REQUESTED CHANGES ---
         const fullMenuData = {
-            'tiffin': {
-                title: 'ðŸ½ï¸ Tiffin & South Indian',
-                items: [
-                    // All descriptions removed, piece count added to names for clarity
-                    { id: 'idli', name: "Idli (2 Pcs)", price: 40, description: "", type: "veg" },
-                    { id: 'dosa', name: "Plain Dosa", price: 60, description: "", type: "veg" },
-                    // Replaced Masala Dosa with Egg Dosa
-                    { id: 'egg_dosa', name: "Egg Dosa", price: 80, description: "", type: "non-veg" }, 
-                    // Onion Uttapam and Poori Bhaji removed
-                    { id: 'toast', name: "Plain Toast with Jam", price: 40, description: "", type: "veg" },
-                ]
-            },
+            breakfast_dinner: {
+  title: "Breakfast & Dinner (8:30 AM to 7:30 PM)",
+  items: [
+    { id: "poori2", name: "Poori (2 Pcs)", price: 60, description: "", type: "veg" },
+    { id: "chapati2", name: "Chappati (2 Pcs)", price: 60, description: "", type: "veg" },
+    { id: "upma", name: "Upma", price: 60, description: "", type: "veg" },
+    { id: "khichdi", name: "Khichdi", price: 60, description: "", type: "veg" }
+  ]
+},
+
             'soups': {
-                title: 'ðŸ² Soups', // NEW SECTION ADDED
+                title: '🍲 Soups', // NEW SECTION ADDED
                 items: [
                     { id: 'sweet_corn_chicken_soup', name: "Sweet Corn Chicken Soup", price: 160, description: "", type: "non-veg" },
                     { id: 'sweet_corn_veg_soup', name: "Sweet Corn Veg Soup", price: 140, description: "", type: "veg" },
                 ]
             },
             'eggs_sandwiches': {
-                title: 'ðŸ¥š Eggs, Omelettes & Sandwiches',
+                title: '🥚 Eggs, Omelettes & Sandwiches',
                 items: [
                     { id: 'boiled_egg', name: "Boiled Egg (1 Pc)", price: 15, description: "", type: "non-veg" },
                     { id: 'sunny_side', name: "Sunny Side Up (2 Eggs)", price: 30, description: "", type: "non-veg" },
@@ -507,7 +505,7 @@
                 ]
             },
             'main_course': {
-                title: 'ðŸ› Main Course: Curries & Accompaniments',
+                title: '🍛 Main Course: Curries & Accompaniments',
                 items: [
                     { id: 'butter_chicken', name: "Butter Chicken Masala", price: 250, description: "", type: "non-veg" },
                     { id: 'kadai_chicken', name: "Kadai Chicken", price: 250, description: "", type: "non-veg" }, 
@@ -521,7 +519,7 @@
                 ]
             },
             'rice_meals': {
-                title: 'ðŸš Rice, Khichdi & Noodles',
+                title: '🍚 Rice, Khichdi & Noodles',
                 items: [
                     { id: 'chicken_biryani', name: "Chicken Biryani", price: 250, description: "", type: "non-veg" },
                     { id: 'non_veg_meals', name: "Non-Veg Meals (Lunch Only)", price: 250, description: "", type: "non-veg" }, 
@@ -538,18 +536,9 @@
                     { id: 'veg_noodles', name: "Veg Noodles", price: 100, description: "", type: "veg" },
                 ]
             },
-            'breads': {
-                title: 'ðŸž Indian Breads',
-                items: [
-                    // Naans removed
-                    { id: 'chapati', name: "Chapati (2 Pcs)", price: 60, description: "", type: "veg" }, // ADDED
-                    { id: 'poori_2pcs', name: "Poori (2 Pcs)", price: 60, description: "", type: "veg" }, // ADDED
-                    { id: 'roti', name: "Plain Roti (1 Pc)", price: 20, description: "", type: "veg" },
-                    { id: 'butter_roti', name: "Butter Roti (1 Pc)", price: 25, description: "", type: "veg" },
-                ]
-            },
+          
             'beverages_snacks': {
-                title: 'ðŸ¥¤ Beverages & Snacks',
+                title: '🥤 Beverages & Snacks',
                 items: [
                     { id: 'hot_tea', name: "Hot Tea", price: 30, description: "", type: "veg" },
                     { id: 'coffee', name: "Coffee", price: 40, description: "", type: "veg" },
@@ -568,7 +557,7 @@
                 ]
             },
             'desserts': {
-                title: 'ðŸ¦ Desserts',
+                title: '🍦 Desserts',
                 items: [
                     // Gulab Jamun removed, resulting in an empty section
                 ]
